@@ -606,7 +606,6 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('heroku:production', [
-    'build'
   ]);
 
   grunt.registerTask('default', [
