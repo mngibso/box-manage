@@ -143,7 +143,7 @@
   "scripts": {
     "start": "node server/app.js",
     "test": "grunt test",
-    "postinstall": "echo postinstall time; node_modules/grunt-cli/bin/grunt build",
+    "postinstall": "echo postinstall time; bower install && node_modules/grunt-cli/bin/grunt build",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
   "private": true
