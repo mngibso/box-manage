@@ -1,1 +1,1 @@
-web: pwd; ls dist; node dist/server/app.js
+web: node dist/server/app.js
