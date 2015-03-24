@@ -478,6 +478,14 @@ module.exports = function (grunt) {
             filePath = filePath.replace('/.tmp/', '');
             return '<script src="' + filePath + '"></script>';
           },
+          sort: function(a,b){
+            //a,b < 0
+            var aI = a.indexOf('controller');
+            var bI = b.indexOf('controller');
+            if(aI > bI) return  1;
+            if(aI < bI) return  -1;
+            return 0;
+          },
           starttag: '<!-- injector:js -->',
           endtag: '<!-- endinjector -->'
         },
