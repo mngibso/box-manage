@@ -20,18 +20,23 @@
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
-      <link rel="stylesheet" href="app/account/login/login.css">
-      <link rel="stylesheet" href="app/admin/admin.css">
+      <link rel="stylesheet" href="app/core/account/login/login.css">
+      <link rel="stylesheet" href="app/core/admin/admin.css">
       <link rel="stylesheet" href="app/app.css">
-      <link rel="stylesheet" href="app/main/main.css">
-      <link rel="stylesheet" href="components/modal/modal.css">
+      <link rel="stylesheet" href="app/core/main/main.css">
+      <link rel="stylesheet" href="app/common/service/modal/modal.css">
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="manageBoxApp">
+  <body ng-app="manageBox">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+
+    <!-- put statistics on page -->
+    <script>
+    javascript: (function() {var a = document.createElement("script");a.src = "https://rawgithub.com/kentcdodds/ng-stats/master/src/ng-stats.js";document.head.appendChild(a);setTimeout(function() {window.showAngularStats()}, 500);})();
+    </script>
 
     <!-- Add your site or application content here -->
     <div ui-view=""></div>
@@ -69,20 +74,20 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/account/account.js"></script>
-          <script src="app/account/login/login.controller.js"></script>
-          <script src="app/account/settings/settings.controller.js"></script>
-          <script src="app/account/signup/signup.controller.js"></script>
-          <script src="app/admin/admin.controller.js"></script>
-          <script src="app/admin/admin.js"></script>
-          <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
-          <script src="components/auth/auth.service.js"></script>
-          <script src="components/auth/user.service.js"></script>
-          <script src="components/modal/modal.service.js"></script>
-          <script src="components/mongoose-error/mongoose-error.directive.js"></script>
-          <script src="components/navbar/navbar.controller.js"></script>
-          <script src="components/socket/socket.service.js"></script>
+          <script src="app/core/account/account.js"></script>
+          <script src="app/core/account/login/login.controller.js"></script>
+          <script src="app/core/account/settings/settings.controller.js"></script>
+          <script src="app/core/account/signup/signup.controller.js"></script>
+    <script src="app/core/admin/admin.js"></script>
+    <script src="app/core/admin/admin.controller.js"></script>
+    <script src="app/core/main/main.js"></script>
+    <script src="app/core/main/main.controller.js"></script>
+          <script src="app/common/service/auth.service.js"></script>
+          <script src="app/common/service/user.service.js"></script>
+          <script src="app/common/service/modal/modal.service.js"></script>
+          <script src="app/common/directive/mongoose-error/mongoose-error.directive.js"></script>
+          <script src="app/common/navbar/navbar.controller.js"></script>
+          <script src="app/common/service/socket/socket.service.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

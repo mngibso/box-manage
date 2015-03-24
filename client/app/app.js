@@ -1,6 +1,15 @@
 'use strict';
 
-angular.module('manageBoxApp', [
+angular.module('manageBox', [
+  'manageBox.common.directive.mongoose-error',
+  'manageBox.common.navbar',
+  'manageBox.common.service.auth',
+  'manageBox.common.service.user',
+  'manageBox.common.service.socket',
+  'manageBox.common.service.modal',
+  'manageBox.core.main',
+  'manageBox.core.admin',
+  'manageBox.core.account',
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -42,13 +51,13 @@ angular.module('manageBoxApp', [
     };
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run([ '$rootScope', '$location', 'manageBox.common.service.AuthService', function ($rootScope, $location, AuthService) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
-      Auth.isLoggedInAsync(function(loggedIn) {
+      AuthService.isLoggedInAsync(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
           $location.path('/login');
         }
       });
     });
-  });
+  }]);
