@@ -57,15 +57,19 @@ module.exports = function (grunt) {
     watch: {
       injectJS: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.js',
-          '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
+          '<%= yeoman.client %>/app/{core,common}/**/*.js',
+          '<%= yeoman.client %>/app/{core,common}/**/**/*.js',
+          '!<%= yeoman.client %>/app/{core,common}/**/*.spec.js',
+          '!<%= yeoman.client %>/app/{core,common}/**/**/*.spec.js',
+          '!<%= yeoman.client %>/app/{core,common}/**/*.mock.js',
+          '!<%= yeoman.client %>/app/{core,common}/**/**/*.mock.js',
           '!<%= yeoman.client %>/app/app.js'],
         tasks: ['injector:scripts']
       },
       injectCss: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.css'
+          '<%= yeoman.client %>/app/{core,common}/**/*.css',
+          '<%= yeoman.client %>/app/{core,common}/**/**/*.css',
         ],
         tasks: ['injector:css']
       },
@@ -75,8 +79,10 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+          '<%= yeoman.client %>/app/{core,common}/**/*.spec.js',
+          '<%= yeoman.client %>/app/{core,common}/**/**/*.spec.js',
+          '<%= yeoman.client %>/app/{core,common}/**/*.mock.js',
+          '<%= yeoman.client %>/app/{core,common}/**/**/*.mock.js'
         ],
         tasks: ['newer:jshint:all', 'karma']
       },
@@ -85,11 +91,16 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-          '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
-          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
+          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.css',
+          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.css',
+          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.html',
+          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.html',
+          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.js',
+          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.js',
+          '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.spec.js',
+          '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.spec.js',
+          '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.mock.js',
+          '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
@@ -130,14 +141,19 @@ module.exports = function (grunt) {
         src: ['server/**/*.spec.js']
       },
       all: [
-        '<%= yeoman.client %>/{app,components}/**/*.js',
-        '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
-        '!<%= yeoman.client %>/{app,components}/**/*.mock.js'
+        '<%= yeoman.client %>/app/{core,common}/**/*.js',
+        '<%= yeoman.client %>/app/{core,common}/**/**/*.js',
+        '!<%= yeoman.client %>/app/{core,common}/**/*.spec.js',
+        '!<%= yeoman.client %>/app/{core,common}/**/**/*.spec.js',
+        '!<%= yeoman.client %>/app/{core,common}/**/*.mock.js',
+        '!<%= yeoman.client %>/app/{core,common}/**/**/*.mock.js'
       ],
       test: {
         src: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+          '<%= yeoman.client %>/app/{core,common}/**/*.spec.js',
+          '<%= yeoman.client %>/app/{core,common}/**/**/*.spec.js',
+          '<%= yeoman.client %>/app/{core,common}/**/*.mock.js',
+          '<%= yeoman.client %>/app/{core,common}/**/**/*.mock.js'
         ]
       }
     },
@@ -314,12 +330,12 @@ module.exports = function (grunt) {
       },
       main: {
         cwd: '<%= yeoman.client %>',
-        src: ['{app,components}/**/*.html'],
+        src: ['/app/{core,common}/**/*.html', '/app/{core,common}/**/**/*.html'],
         dest: '.tmp/templates.js'
       },
       tmp: {
         cwd: '.tmp',
-        src: ['{app,components}/**/*.html'],
+        src: ['/app/{core,common}/**/*.html', '/app/{core,common}/**/**/*.html'],
         dest: '.tmp/tmp-templates.js'
       }
     },
@@ -365,7 +381,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
-        src: ['{app,components}/**/*.css']
+        src: ['/app/{core,common}/**/*.css','/app/{core,common}/**/**/*.css']
       }
     },
 
@@ -467,10 +483,13 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-              ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
+              ['{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.js',
+               '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.js',
                '!{.tmp,<%= yeoman.client %>}/app/app.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
+               '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.spec.js',
+                '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.spec.js',
+               '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.mock.js',
+            '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.mock.js']
             ]
         }
       },
@@ -488,11 +507,12 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
+            '<%= yeoman.client %>/app/{core,common}/**/*.css',
+            '<%= yeoman.client %>/app/{core,common}/**/**/*.css'
           ]
         }
       }
-    },
+    }
   });
 
   // Used for delaying livereload until after server has restarted
