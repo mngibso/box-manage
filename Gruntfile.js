@@ -316,7 +316,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       options: {
         // This should be the name of your apps angular module
-        module: 'manageBoxApp',
+        module: 'manageBox',
         htmlmin: {
           collapseBooleanAttributes: true,
           collapseWhitespace: true,
@@ -329,13 +329,13 @@ module.exports = function (grunt) {
         usemin: 'app/app.js'
       },
       main: {
-        cwd: '<%= yeoman.client %>',
-        src: ['/app/{core,common}/**/*.html', '/app/{core,common}/**/**/*.html'],
+        cwd: '<%= yeoman.client %>/app',
+        src: ['{core,common}/**/*.html', '{core,common}/**/**/*.html'],
         dest: '.tmp/templates.js'
       },
       tmp: {
         cwd: '.tmp',
-        src: ['/app/{core,common}/**/*.html', '/app/{core,common}/**/**/*.html'],
+        src: ['{core,common}/**/*.html', '{core,common}/**/**/*.html'],
         dest: '.tmp/tmp-templates.js'
       }
     },
