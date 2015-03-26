@@ -329,8 +329,8 @@ module.exports = function (grunt) {
         usemin: 'app/app.js'
       },
       main: {
-        cwd: '<%= yeoman.client %>/app',
-        src: ['{core,common}/**/*.html', '{core,common}/**/**/*.html'],
+        cwd: '<%= yeoman.client %>',
+        src: ['app/{core,common}/**/*.html'],
         dest: '.tmp/templates.js'
       },
       tmp: {
