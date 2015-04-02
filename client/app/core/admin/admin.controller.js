@@ -1,11 +1,11 @@
 'use strict';
 
 (function(){
-angular.module('manageBox.core.admin')
-  .controller('manageBox.core.admin.AdminCtrl', [ '$scope', '$http', 'manageBox.common.service.AuthService',
-     'manageBox.common.service.UserService', AdminController ]);
+  angular.module('manageBox.core.admin')
+    .controller('manageBox.core.admin.AdminCtrl',
+    [ '$scope', 'manageBox.common.service.UserService', AdminController ]);
 
-    function AdminController($scope, $http, Auth, User) {
+  function AdminController($scope, User) {
 
     // Use the User $resource to fetch all users
     $scope.users = User.query();

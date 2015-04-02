@@ -3,30 +3,32 @@
 (function(){
 
   angular.module('manageBox.core.main')
-    .controller('manageBox.core.main.MainCtrl', ['$scope', '$http', 'manageBox.common.service.socket.SocketService', function ($scope, $http, socket) {
+    .controller('manageBox.core.main.MainCtrl',
+    ['$scope', 'manageBox.common.service.socket.SocketService','manageBox.common.service.thingAPIService',
+      MainController]);
 
+  function MainController($scope, socket, thing) {
+    $scope.awesomeThings = [];
 
-      $scope.awesomeThings = [];
+    thing.get().then(function(things){
+      $scope.awesomeThings = things;
+      socket.syncUpdates('thing', $scope.awesomeThings);
+    });
+    $scope.addThing = function() {
+      if($scope.newThing === '') {
+        return;
+      }
+      thing.add( $scope.newThing).then(function(){ console.log('add thing');});
+      $scope.newThing = '';
+    };
 
-      $http.get('/api/things').success(function(awesomeThings) {
-        $scope.awesomeThings = awesomeThings;
-        socket.syncUpdates('thing', $scope.awesomeThings);
-      });
+    $scope.deleteThing = function(theThing) {
+      thing.delete( theThing._id ).then(function(){ console.log('delete thing');});
+    };
 
-      $scope.addThing = function() {
-        if($scope.newThing === '') {
-          return;
-        }
-        $http.post('/api/things', { name: $scope.newThing });
-        $scope.newThing = '';
-      };
-
-      $scope.deleteThing = function(thing) {
-        $http.delete('/api/things/' + thing._id);
-      };
-
-      $scope.$on('$destroy', function () {
-        socket.unsyncUpdates('thing');
-      });
-    }]);
+    $scope.$on('$destroy', function () {
+      console.log('destroy');
+      socket.unsyncUpdates('thing');
+    });
+  }
 })();

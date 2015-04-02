@@ -7,6 +7,7 @@ angular.module('manageBox', [
   'manageBox.common.service.user',
   'manageBox.common.service.socket',
   'manageBox.common.service.modal',
+  'manageBox.common.service.thingAPI',
   'manageBox.core.main',
   'manageBox.core.admin',
   'manageBox.core.account',
