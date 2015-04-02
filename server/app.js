@@ -54,7 +54,7 @@ server.listen(config.port, config.ip, function () {
       "id":"3376092556","sequence_id":"0","etag":"0",
       "name":"manage-noe-box"}
   }
-],"refresh_token": "***REMOVED***",
+],"refresh_token": "Dw3zYO6Bss1LPMek8cwnyLFlnCJfuybAUkBkq9NGionjsvu4oyQZifTY8I8ipAtW",
   "token_type":"bearer"}
   */
 /*
