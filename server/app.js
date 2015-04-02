@@ -41,8 +41,8 @@ server.listen(config.port, config.ip, function () {
 
 //Box sdk
 /*
- curl https://api.box.com/t-Type:application/x-www-form-urlencoded" -d 'client_id=m8bl1wipxrc8tz9tiye1c2xjekwisu96&client_secret=rAGvvfKP6PIlf3u0sWSGsekD3XV2MGqG&grant_type=urn:box:oauth2:grant-type:provision&username=mark@gibsonsoftware.com' -X POST
- {"access_token":"RD5GHAagD2DuvwIrb9B9DtawD6EeqWhr","expires_in":4004,"restricted_to":[{"scope":"folder_readwrite","object":{"type":"folder","id":"3376092556","sequence_id":"0","etag":"0","name":"manage-noe-box"}}],"refresh_token":"Dw3zYO6Bss1LPMek8cwnyLFlnCJfuybAUkBkq9NGionjsvu4oyQZifTY8I8ipAtW","token_type":"bearer"}
+ curl https://api.box.com/t-Type:application/x-www-form-urlencoded" -d 'client_id=xxx&client_secret=xxx&grant_type=urn:box:oauth2:grant-type:provision&username=mark@gibsonsoftware.com' -X POST
+ {"access_token":"xxx","expires_in":4004,"restricted_to":[{"scope":"folder_readwrite","object":{"type":"folder","id":"3376092556","sequence_id":"0","etag":"0","name":"manage-noe-box"}}],"refresh_token":"xxx","token_type":"bearer"}
  */
 /*
 {"access_token":"RD5GHAagD2DuvwIrb9B9DtawD6EeqWhr"
