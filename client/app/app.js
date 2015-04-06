@@ -8,6 +8,7 @@ angular.module('manageBox', [
   'manageBox.common.service.socket',
   'manageBox.common.service.modal',
   'manageBox.common.service.thingAPI',
+  'manageBox.common.service.boxAPI',
   'manageBox.core.main',
   'manageBox.core.admin',
   'manageBox.core.account',
@@ -24,6 +25,21 @@ angular.module('manageBox', [
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
+    $httpProvider.interceptors.push('httpErrorsInterceptor');
+  })
+  .factory('httpErrorsInterceptor', function ($q, $rootScope) {
+    return {
+      responseError: function (response) {
+        var config = response.config;
+        if (config.bypassErrorInterceptor) {
+          return $q.reject(response);
+        }
+        //ToDo - listen for httpError
+        $rootScope.$broadcast('httpError', response.status || 500, response.statusText || 'unknown');
+        console.log(response.statusText || 'unknown');
+        return $q.reject(response);
+      }
+    }
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {

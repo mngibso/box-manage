@@ -2,9 +2,9 @@
 
 (function(){
   angular.module('manageBox.common.service.thingAPI', [])
-    .factory('manageBox.common.service.thingAPIService', ['$http', thingAPIService]);
+    .factory('manageBox.common.service.ThingAPIService', ['$http', ThingAPIService]);
 
-  function thingAPIService( $http ) {
+  function ThingAPIService( $http ) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     return {
        add: addThing

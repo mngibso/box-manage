@@ -4,7 +4,7 @@
 
   angular.module('manageBox.core.main')
     .controller('manageBox.core.main.MainCtrl',
-    ['$scope', 'manageBox.common.service.socket.SocketService','manageBox.common.service.thingAPIService',
+    ['$scope', 'manageBox.common.service.socket.SocketService','manageBox.common.service.ThingAPIService',
       MainController]);
 
   function MainController($scope, socket, thing) {

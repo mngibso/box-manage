@@ -26,3 +26,6 @@ Tweak the Grunt file to support the new directory structure.
 
 ## Yeoman
 
+# Box
+
+Allow users to upload/download files on behalf of a box user.  see Provisioning https://developers.box.com/provision/

@@ -57,6 +57,11 @@ var all = {
     clientID:     process.env.GOOGLE_ID || 'id',
     clientSecret: process.env.GOOGLE_SECRET || 'secret',
     callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
+  },
+  box: {
+    clientID:     process.env.BOX_CLIENT_ID || 'id',
+    clientSecret: process.env.BOX_CLIENT_SECRET || 'secret',
+    refreshToken: process.env.BOX_REFRESH_TOKEN || 'refresh_token'
   }
 };
 

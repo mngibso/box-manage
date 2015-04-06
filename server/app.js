@@ -62,7 +62,7 @@ server.listen(config.port, config.ip, function () {
  Using the Access and Refresh TokensThe access_token is the actual string needed to make API requests. Each access_token is valid for 1 hour. In order to get a new, valid token, you can use the accompanying refresh_token. Each refresh_token is valid for one use in 60 days. Every time you get a new access_token by using a refresh_token, we reset your timer for the 60 day period and hand you a new refresh_token. This means that as long as your users use your application once every 60 days, their login is valid forever. To use the refresh_token to get a new access_token, make a POST request to https://app.box.com/api/oauth2/token with the following, URL encoded parameters:A sample cURL request would look like:
  https://developers.box.com/oauth/
  */
-app.set('BOX_REFRESH_TOKEN', process.env.BOX_REFRESH_TOKEN || 'none')
+/*
 var box_sdk = require('box-sdk');
 
 var logLevel = 'debug'; //default log level on construction is info
@@ -87,7 +87,7 @@ connection.ready(function () {
     console.dir(result);
   });
 });
-
+*/
 
 // Expose app
 exports = module.exports = app;
