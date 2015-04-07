@@ -1,10 +1,10 @@
 # box-manage
 Used angular-fullstack.  Sandbox for:
 
+* Create a service that allows Angular apps to obtain a Box access (authentication) token to upload and access content on behalf of a Box user.
 * Experiment with "best practices" for Angular found in various videos.  
-* Figure out how to deploy to Heroku with grunt.
-* Play with Yeoman.
-* Play with box api.
+* Deploy to Heroku with grunt without adding the dist/ directory to git.
+* Use Yeoman
 
 ## Best Practices?
 
@@ -15,6 +15,7 @@ I found many things labled "best practices" online, some of it conflicting. I wa
 * No $http in controllers - use services.
 * Use closures everywhere.
 * Don't use anonymous functions.
+* Global http error handler. This can be bypassed by setting config.bypassErrorInterceptor = true in the request config.
 
 ## Heroku
 
@@ -26,6 +27,6 @@ Tweak the Grunt file to support the new directory structure.
 
 ## Yeoman
 
-# Box
+## Box
 
-Allow users to upload/download files on behalf of a box user.  see Provisioning https://developers.box.com/provision/
+Allow users to upload/download files on behalf of a box user.  See Provisioning https://developers.box.com/provision/  The Box feature that allows this is only available for paid accounts.
