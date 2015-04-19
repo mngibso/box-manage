@@ -25,19 +25,75 @@ if(config.seedDB) { require('./config/seed'); }
 
 // Setup server
 var app = express();
+function clientErrorHandler(err, req, res, next) {
+  console.log('clientErrorHandler');
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something blew up!' });
+  } else {
+    next(err);
+  }
+}
+function errorHandler(err, req, res, next) {
+  console.log('errorHandler');
+  res.status(500);
+  res.send('Error')
+  //ToDo - error template
+  //res.render('error', { error: err });
+}
+
 var server = require('http').createServer(app);
 var socketio = require('socket.io')(server, {
-  serveClient: (config.env === 'production') ? false : true,
+  serveClient: config.env !== 'production',
   path: '/socket.io-client'
 });
 require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app);
+app.use(clientErrorHandler);
+app.use(errorHandler);
 
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
+
+
+
+
+//Proxy
+
+var http = require('http');
+
+http.createServer(onRequest).listen(8000);
+
+function onRequest(client_req, client_res) {
+  console.log('serve: ' + client_req.method + ':' + client_req.url);
+
+  var options = {
+    hostname: 'api.box.com',
+    port: 80,
+    //port: 443,
+    path: client_req.url,
+    method: 'GET'
+  };
+
+  client_res.setHeader('Access-Control-Allow-Origin', '*');
+  //client_res.setHeader('Access-Control-Allow-Origin', client_req.headers.origin || '*');
+  client_res.setHeader('Access-Control-Allow-Credentials', true);
+  client_res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');  // only allow cross domain for read only operations
+  client_res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Location, Content-Type, Authorization, Content-Length, X-Requested-With');
+
+  var proxy = http.request(options, function (res) {
+    console.log('xxx');
+    res.pipe(client_res, {
+      end: true
+    });
+  });
+
+  client_req.pipe(proxy, {
+    end: true
+  });
+}
 
 //Box sdk
 /*
@@ -59,35 +115,15 @@ server.listen(config.port, config.ip, function () {
   */
 /*
 
- Using the Access and Refresh TokensThe access_token is the actual string needed to make API requests. Each access_token is valid for 1 hour. In order to get a new, valid token, you can use the accompanying refresh_token. Each refresh_token is valid for one use in 60 days. Every time you get a new access_token by using a refresh_token, we reset your timer for the 60 day period and hand you a new refresh_token. This means that as long as your users use your application once every 60 days, their login is valid forever. To use the refresh_token to get a new access_token, make a POST request to https://app.box.com/api/oauth2/token with the following, URL encoded parameters:A sample cURL request would look like:
- https://developers.box.com/oauth/
+ Using the Access and Refresh TokensThe access_token is the actual string needed to make API requests.
+ Each access_token is valid for 1 hour. In order to get a new, valid token, you can use the accompanying refresh_token.
+ Each refresh_token is valid for one use in 60 days.
+ Every time you get a new access_token by using a refresh_token,
+ we reset your timer for the 60 day period and hand you a new refresh_token.
+ This means that as long as your users use your application once every 60 days, their login is valid forever.
+ To use the refresh_token to get a new access_token, make a POST request to
+ https://app.box.com/api/oauth2/token with the following, URL encoded parameters:A sample cURL request would look like:
  */
-/*
-var box_sdk = require('box-sdk');
-
-var logLevel = 'debug'; //default log level on construction is info
-
-//Default host: localhost
-var box = box_sdk.Box({
-  client_id: process.env.BOX_CLIENT_ID || 'none',
-  client_secret: process.env.BOX_CLIENT_SECRET || 'none',
-  port: 9999,
-  host: 'localhost' //default localhost
-}, logLevel);
-var connection = box.getConnection(process.env.box_user_email || 'mark@gibsonsoftware.com');
-
-//Navigate user to the auth URL
-console.log(connection.getAuthURL());
-
-connection.ready(function () {
-  connection.getFolderItems(0, {limit: 1}, function (err, result) {
-    if (err) {
-      console.error(JSON.stringify(err.context_info));
-    }
-    console.dir(result);
-  });
-});
-*/
 
 // Expose app
 exports = module.exports = app;

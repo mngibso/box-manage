@@ -4,21 +4,21 @@
 
 'use strict';
 
-var thing = require('./box.model.js');
+var box = require('./box.model.js');
 
 exports.register = function(socket) {
-  thing.schema.post('save', function (doc) {
+  box.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  thing.schema.post('remove', function (doc) {
+  box.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
-}
+};
 
 function onSave(socket, doc, cb) {
-  socket.emit('thing:save', doc);
+  socket.emit('box:save', doc);
 }
 
 function onRemove(socket, doc, cb) {
-  socket.emit('thing:remove', doc);
+  socket.emit('box:remove', doc);
 }

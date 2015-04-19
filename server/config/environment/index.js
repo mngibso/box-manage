@@ -59,9 +59,11 @@ var all = {
     callbackURL:  (process.env.DOMAIN || '') + '/auth/google/callback'
   },
   box: {
-    clientID:     process.env.BOX_CLIENT_ID || 'id',
-    clientSecret: process.env.BOX_CLIENT_SECRET || 'secret',
-    refreshToken: process.env.BOX_REFRESH_TOKEN || 'refresh_token'
+    clientID:     process.env.BOX_CLIENT_ID || 'id'
+    ,clientSecret: process.env.BOX_CLIENT_SECRET || 'secret'
+    ,refreshToken: process.env.BOX_REFRESH_TOKEN || 'refresh_token'
+    ,base_url: 'https://api.box.com/2.0'
+    ,upload_url: 'https://upload.box.com/api/2.0'
   }
 };
 

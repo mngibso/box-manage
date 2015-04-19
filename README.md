@@ -30,3 +30,5 @@ Tweak the Grunt file to support the new directory structure.
 ## Box
 
 Allow users to upload/download files on behalf of a box user.  See Provisioning https://developers.box.com/provision/  The Box feature that allows this is only available for paid accounts.
+
+When an initial request is rejected with a 401, automatically refresh the access token and try again.

@@ -7,6 +7,9 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+require('../api/box/box.model');
+var BoxToken = require('mongoose').model('BoxToken');//('../api/box/box.model');
+
 Thing.find({}).count(function(err, count ) {
   if(count < 1) {
     console.log('populating thing');
@@ -48,6 +51,18 @@ User.find({}).count(function(err, count ) {
         password: 'admin'
       }, function () {
         console.log('finished populating users');
+      }
+    );
+  }
+});
+BoxToken.find({}).count(function(err, count ) {
+  if(count < 1) {
+    console.log('creating BoxToken');
+    BoxToken.create({
+        access: ''
+        ,refresh: process.env.BOX_REFRESH_TOKEN || 'none'
+      }, function () {
+        console.log('finished populating BoxTokens');
       }
     );
   }

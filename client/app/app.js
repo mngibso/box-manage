@@ -9,6 +9,7 @@ angular.module('manageBox', [
   'manageBox.common.service.modal',
   'manageBox.common.service.thingAPI',
   'manageBox.common.service.boxAPI',
+  'manageBox.common.service.sessionStorage',
   'manageBox.core.main',
   'manageBox.core.admin',
   'manageBox.core.account',
@@ -24,12 +25,18 @@ angular.module('manageBox', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+    //make req.xhr == true in node
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     $httpProvider.interceptors.push('authInterceptor');
     $httpProvider.interceptors.push('httpErrorsInterceptor');
+    //$httpProvider.defaults.useXDomain = true;
+    //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    console.log('done');
   })
   .factory('httpErrorsInterceptor', function ($q, $rootScope) {
     return {
       responseError: function (response) {
+        console.log('httpErrorsInterceptor');
         var config = response.config;
         if (config.bypassErrorInterceptor) {
           return $q.reject(response);

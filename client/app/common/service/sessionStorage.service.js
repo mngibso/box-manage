@@ -11,6 +11,7 @@
       ,get: getSession
     };
   function setSession( key, value ){
+    console.log('sessionStorage set ' + key + ': ' + value);
     try{
       if( $window.Storage ){
         $window.sessionStorage.setItem(key, value);
@@ -23,9 +24,10 @@
     }
   }
   function getSession( key ){
+    console.log('sessionStorage get ' + key);
     try{
       if( $window.Storage ){
-        return $window.sessionStorage.setItem( key );
+        return $window.sessionStorage.getItem( key );
       } else {
         return false;
       }
