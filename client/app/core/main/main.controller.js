@@ -4,10 +4,10 @@
 
   angular.module('manageBox.core.main')
     .controller('manageBox.core.main.MainCtrl',
-    ['$scope', 'manageBox.common.service.socket.SocketService','manageBox.common.service.ThingAPIService',
+    ['$scope', '$upload', 'manageBox.common.service.socket.SocketService','manageBox.common.service.ThingAPIService',
       MainController]);
 
-  function MainController($scope, socket, thing) {
+  function MainController($scope, $upload, socket, thing) {
     $scope.awesomeThings = [];
 
     thing.get().then(function(things){
@@ -30,5 +30,32 @@
       console.log('destroy');
       socket.unsyncUpdates('thing');
     });
+
+    $scope.$watch('files', function () {
+      $scope.upload($scope.files);
+    });
+
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          $upload.upload({
+            url: '/api/box/',
+            fields: {
+              'username': '$scope.username'
+            },
+            file: file
+          }).progress(function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' +
+              evt.config.file.name);
+          }).success(function (data, status, headers, config) {
+            console.log('file ' + config.file.name + 'uploaded. Response: ' +
+              JSON.stringify(data));
+          });
+        }
+      }
+    };
+
   }
 })();

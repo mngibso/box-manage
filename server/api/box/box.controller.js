@@ -10,12 +10,14 @@
 'use strict';
 
 require('./box.model');
-//var request = require('request');
+var request = require('request');
 var jq = require('jquery');
 jq.support.cors = true;
 var http = require('http');
 var BoxToken = require('mongoose').model('BoxToken');
-var config = require('../../config/environment');
+var boxConfig = require('../../config/environment').box;
+var fs = require('fs');
+var async = require('async');
 //var refreshToken = exports.token;
 
 //var _ = require('lodash');
@@ -30,7 +32,7 @@ var config = require('../../config/environment');
  });
  };
  */
-var refreshToken = function(success, fail) {
+var refreshToken = function(cb, failcb) {
   BoxToken.findOne(function (err, token) {
     if (err) {
       return fail(err);
@@ -42,8 +44,8 @@ var refreshToken = function(success, fail) {
 
     var form = {
       grant_type: 'refresh_token'
-      , client_id: config.box.clientID
-      , client_secret: config.box.clientSecret
+      , client_id: boxConfig.clientID
+      , client_secret: boxConfig.clientSecret
       , refresh_token: token.refresh
     };
 
@@ -58,15 +60,17 @@ var refreshToken = function(success, fail) {
             access: data.access_token
           },
           function (err, token) {
-            if(err) return fail(err);
-            success({token: data.access_token});
+            if(err) return failcb(err);
+            boxConfig.access_token = data.access_token;
+            boxConfig.refresh_token = data.refresh_token;
+            cb({token: data.access_token});
           });
       })
       .fail( function( jqXHR, textStatus, errorThrown ){
         console.log('box.token error');
         console.log(textStatus);
         console.log(errorThrown);
-        fail(errorThrown);
+        failcb(errorThrown);
       });
 
   });
@@ -74,7 +78,8 @@ var refreshToken = function(success, fail) {
 };
 
 exports.token = function(req, res, next){
-  refreshToken(res.send, next);
+  refreshToken(function(data) { res.send(data); },
+    function(err) { next(err); });
 };
 
 //get a new access token
@@ -113,7 +118,7 @@ exports.contents = function(req, res, next) {
   console.log('call contents');
   var folder_id = req.params.folder_id;
   var url = 'https://api.box.com/2.0/folders/' + folder_id + '/items';
-  var token = 'vx89UjljqT1a2NiDLhz5aiu9PubUMAh2';
+  var token = 'wQjGVxxAzmMNbXtELyqZnyV0GgB8FZIX';
   // request.post('https://api.box.com/oauth2/token',
   //var url = 'http://localhost:8000' + '/folders/' + folder_id + '/items';
   console.log(url);
@@ -127,7 +132,8 @@ exports.contents = function(req, res, next) {
     }
   })
     .done ( function (data, textStatus, jqXHR) {
-    console.log('contents ' + data);
+    console.log('contents ');
+    console.log(data);
       res.send(data);
   })
     .fail( function( jqXHR, textStatus, errorThrown ){
@@ -139,6 +145,145 @@ exports.contents = function(req, res, next) {
 
     });
 };
+
+/*
+ curl https://upload.box.com/api/2.0/files/content \
+ -H "Authorization: Bearer ACCESS_TOKEN" -X POST \
+ -F attributes='{"name":"tigers.jpeg", "parent":{"id":"11446498"}}' \
+ -F file=@myfile.jpg
+ */
+var upload = exports.upload = function(req, res, next) {
+  //Try to upload, if 401, refresh token and try again
+  async.waterfall([
+    function(callback) {
+      boxUpload(req, function (response) {
+          //Success  - but check for status
+          if (response.statusCode == 200) {
+            //success
+            return callback(null, false, response.body);
+          }
+          if (response.statusCode == 401) {
+            //Retry
+            return callback(null, true, null)
+          }
+          //non 401 error
+          callback({error: response.statusCode});
+        }
+        //ERROR
+        , function (err) {
+          callback(err);
+        });
+      //callback(null, 'one', 'two');
+    }
+    , function(retry, data, callback) {
+      // arg1 now equals 'one' and arg2 now equals 'two'
+      if(retry) {
+        refreshToken(function(access){
+          console.log('new token ' + access.token)
+          callback(null, true, null);
+        }
+          ,function(err){
+            callback(null, true, null);
+          }
+        );
+      } else { // Already have data
+        callback(null, retry, data);
+      }
+    },
+    function(retry, data, callback) {
+      // arg1 now equals 'three'
+      if(retry){
+        //retry the upload
+        boxUpload(req, function (response) {
+            //Success  - but check for status
+            if (response.statusCode == 200) {
+              callback(null,response.data)
+            } else {
+              callback({error: response.statusCode});
+            }
+          }
+          , function (err) {
+            callback(err);
+          });
+      } else {
+      //already have data
+      callback(null, data);
+    }
+  }
+  ], function (err, data) {
+    if(err) return next(err);
+    console.log('UPLOAD SUCCESS');
+    //{"total_count":1,"entries":[{"type":"file","id":"29038747944","file_version":{"type":"file_version","id":"27723630358","sha1":"a28cb3fffbd2d6d21ddfc66ad0eedebcc1fc1fcd"},"sequence_id":"0","etag":"0","sha1":"a28cb3fffbd2d6d21ddfc66ad0eedebcc1fc1fcd","name":"wallet","description":"","size":9831,"path_collection":{"total_count":2,"entries":[{"type":"folder","id":"0","sequence_id":null,"etag":null,"name":"All Files"},{"type":"folder","id":"3405819366","sequence_id":"0","etag":"0","name":"manage-noe-box"}]},"created_at":"2015-04-20T15:06:56-07:00","modified_at":"2015-04-20T15:06:56-07:00","trashed_at":null,"purged_at":null,"content_created_at":"2015-04-20T15:06:56-07:00","content_modified_at":"2015-04-20T15:06:56-07:00","created_by":{"type":"user","id":"232678009","name":"Mark Gibson","login":"mark@gibsonsoftware.com"},"modified_by":{"type":"user","id":"232678009","name":"Mark Gibson","login":"mark@gibsonsoftware.com"},"owned_by":{"type":"user","id":"235645086","name":"Mark Gibson yahoo","login":"mngibso@yahoo.com"},"shared_link":null,"parent":{"type":"folder","id":"3405819366","sequence_id":"0","etag":"0","name":"manage-noe-box"},"item_status":"active"}]}
+    console.log(data);
+  });
+};
+var boxUpload = function(req, cb, errorCb ) {
+  console.log('call upload');
+
+  console.log(req.body, req.files);
+  var doc = req.files.file;
+
+
+  var parent = boxConfig.baseFolderId;
+  var url = boxConfig.upload_url + '/files/content';
+  console.log(url);
+
+  var config =  {
+    url: url
+    ,headers: {
+    Authorization: 'Bearer ' + boxConfig.access_token
+  }};
+
+  var formData = {
+    attributes: JSON.stringify( { name: doc.name
+    ,parent: { id: parent } })
+    ,file: {
+      value:  fs.createReadStream(doc.path),
+      options: {
+      filename: doc.name,
+        contentType: doc.type
+    }
+  }
+  };
+  config.formData = formData;
+
+  console.log(config);
+  var post = request.post(config, function (err, resp, body) {
+    if (err) {
+      console.log('Error!');
+      return errorCb(err);
+    } else {
+      console.log(body);
+      //If statusCode == 401, refresh token and retry
+      console.log(resp.statusCode);
+      return cb(resp);
+      }
+  });
+  /*
+  var form = post.form();
+  form.append('file', fs.createReadStream(doc.path), {
+    name: doc.name
+    ,parent: { pid: parent }
+  });
+  jq.ajax(url, {
+
+    method: 'POST'
+  })
+    .done ( function (data, textStatus, jqXHR) {
+    console.log('contents ' + data);
+    res.send(data);
+  })
+    .fail( function( jqXHR, textStatus, errorThrown ){
+      console.log(errorThrown);
+      console.log(jqXHR.status);
+      console.log(jqXHR.getAllResponseHeaders()['www-authenticate']);
+      next(errorThrown);
+
+
+    });
+   */
+};
+
 exports.showme = function(req, res, next) {
   Box.findById(req.params.id, function (err, thing) {
     if(err) { return next(err); }
@@ -201,7 +346,7 @@ jq.ajaxPrefilter(function(opts, originalOpts, jqXHR) {
     var args = Array.prototype.slice.call(arguments);
     // If box api && 401, refresh access token and retry
     var url = this.url;
-    if (jqXHR.status == 401 && this.url.indexOf(config.box.base_ur) == -1) {
+    if (jqXHR.status == 401 && this.url.indexOf(boxConfig.base_ur) == -1) {
       console.log('RETRY box api call');
       //refreshToken and retry
       refreshToken( function( data ){ //success
