@@ -13,6 +13,7 @@ angular.module('manageBox', [
   'manageBox.core.main',
   'manageBox.core.admin',
   'manageBox.core.account',
+  'angular-loading-bar',
   'ngCookies',
   'ngResource',
   'ngSanitize',

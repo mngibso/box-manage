@@ -5,13 +5,14 @@
   angular.module('manageBox.core.main')
     .controller('manageBox.core.main.MainCtrl',
     ['$scope'
+      ,'$window'
       ,'$upload'
       ,'manageBox.common.service.socket.SocketService'
       ,'manageBox.common.service.ThingAPIService'
       ,'manageBox.common.service.BoxAPIService'
       ,MainController]);
 
-  function MainController($scope, $upload, socket, thing, box) {
+  function MainController($scope, $window, $upload, socket, thing, box) {
     $scope.awesomeThings = [];
     $scope.boxDocuments = [];
 
@@ -24,6 +25,15 @@
       $scope.awesomeThings = things;
       socket.syncUpdates('thing', $scope.awesomeThings);
     });
+
+    $scope.downloadDocument = function(doc){
+     console.log('Download  ' + doc.id) ;
+      box.get(doc.id).then(function(resp){
+        console.log(resp.data)
+        var url = resp.data.url;
+        $window.open(url);
+      });
+    }
 
     $scope.addThing = function() {
       if($scope.newThing === '') {

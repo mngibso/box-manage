@@ -7,10 +7,10 @@ var multipartMiddleware = multipart();
 
 var router = express.Router();
 
-router.get('/', controller.contents);
-router.get('/folders/:folder_id/items', controller.contents); //refresh token
+router.get('/', controller.contents); // contents of the base folder defined in env
+router.get('/folders/:folder_id/items', controller.contents); //contents of folder_id
 router.get('/token', controller.token); //refresh token
-//router.get('/:id', controller.show);
+router.get('/:file_id', controller.download); //returns a link to the file
 router.post('/', multipartMiddleware, controller.upload);
 //router.put('/:id', controller.update);
 //router.patch('/:id', controller.update);

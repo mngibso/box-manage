@@ -15,6 +15,7 @@
     "lodash": "~2.4.1",
     "angular-socket-io": "~0.6.0",
     "ng-file-upload": "~3.3.3",
+    "angular-loading-bar": "*",
     "angular-ui-router": "~0.2.10"
   },
   "devDependencies": {

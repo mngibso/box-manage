@@ -11,7 +11,6 @@ var emitter = exports.emitter =  new Emitter();
 exports.register = function(socket) {
   //box.schema.post('save', function (doc) {
   emitter.on( 'boxCreate', function( doc ) {
-    console.log('box create emitted');
     onSave(socket, doc);
   });
   emitter.on('boxRemove', function (doc) {
@@ -20,7 +19,6 @@ exports.register = function(socket) {
 };
 
 function onSave(socket, doc, cb) {
-  console.log('box:save update socket');
   socket.emit('box:save', doc);
 }
 

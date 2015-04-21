@@ -15,6 +15,7 @@
     return {
        token: token
       ,contents: contents
+      ,get: download
     };
 
     // obtain the access token
@@ -26,12 +27,14 @@
     //curl https://api.box.com/2.0/folders/FOLDER_ID/items?limit=2&offset=0  -H "Authorization: Bearer ACCESS_TOKEN"
     //ToDo - add limit and offset for pagination
     function contents(folder_id, token) {
-      console.log('call contents');
-      //ToDo - put api base url in config
-      //var url = self.config.base_url + '/folders/' + folder_id + '/items';
-      //var url = 'http://localhost:9000' + '/api/box/folders/' + folder_id + '/items';
       var url = '/api/box/';
-      //return $http.get( self.config.base_url + '/folders/' + folder_id + '/items', conf);
+      return $http.get(url);
+    }
+
+    //curl -L https://api.box.com/2.0/files/FILE_ID/content
+    function download(file_id) {
+      console.log('call contents');
+      var url = '/api/box/' + file_id;
       return $http.get(url);
     }
   }

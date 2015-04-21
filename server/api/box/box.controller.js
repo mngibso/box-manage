@@ -3,7 +3,6 @@
 require('./box.model');
 var request = require('request');
 var jq = require('jquery');
-jq.support.cors = true;
 var http = require('http');
 var BoxToken = require('mongoose').model('BoxToken');
 var boxConfig = require('../../config/environment').box;
@@ -12,6 +11,7 @@ var async = require('async');
 //var Emitter = require('events').EventEmitter;
 var emitter = require('./box.socket.js').emitter;
 
+jq.support.cors = true;
 //Refresh the Box access and refresh tokens
 var refreshToken = function(cb, failcb) {
   BoxToken.findOne(function (err, token) {
@@ -27,8 +27,6 @@ var refreshToken = function(cb, failcb) {
 
     jq.post('https://api.box.com/oauth2/token', form)
       .done( function( data, textStatus, jqXHR ) {
-        console.log('box.token');
-        console.log(data);
         //Update tokens in the db
         BoxToken.findOneAndUpdate({},
           {
@@ -86,13 +84,13 @@ exports.token = function(req, res, next){
 //request.post('http://service.com/upload', {form:{key:'value'}})
 
 
-// Get a single thing
 
 //curl https://api.box.com/2.0/folders/FOLDER_ID/items?limit=2&offset=0  -H "Authorization: Bearer ACCESS_TOKEN"
 //ToDo - add limit and offset for pagination
+//Get folder contents
 exports.contents = function(req, res, next) {
   var folder_id = req.params.folder_id || boxConfig.appFolderId;
-  var url = 'https://api.box.com/2.0/folders/' + folder_id + '/items';
+  var url = boxConfig.base_url + '/folders/' + folder_id + '/items';
   jq.ajax(url, {
     headers: {
       Authorization: 'Bearer ' + boxConfig.access_token
@@ -110,6 +108,34 @@ exports.contents = function(req, res, next) {
       next(errorThrown);
 
 
+    });
+};
+
+//Get file contents
+//curl https://api.box.com/2.0/files/29049453912/content
+exports.download = function(req, res, next) {
+  var file_id = req.params.file_id;
+  var url = boxConfig.base_url + '/files/' + file_id + '/content';
+
+  //This call should return a 302 with the location header
+  jq.ajax(url, {
+    headers: {
+      Authorization: 'Bearer ' + boxConfig.access_token
+    }
+  })
+    .done ( function (data, textStatus, jqXHR) {
+    //We should never get a 20x from this call
+    next({error: 'Unexpected result'});
+  })
+    .fail( function( jqXHR, textStatus, errorThrown ){
+      console.log(errorThrown);
+      console.log(jqXHR.status);
+      if(jqXHR.status == 302){
+        //This is the expected return
+        var url = jqXHR.getResponseHeader('location') || '';
+        if(url) return res.send({url: url});
+      }
+      next(errorThrown);
     });
 };
 
@@ -192,12 +218,12 @@ exports.upload = function(req, res, next) {
     res.send(data);
   });
 };
+
 var boxUpload = function(req, cb, failcb ) {
   console.log('call upload');
 
   console.log(req.body, req.files);
   var doc = req.files.file;
-
 
   var parent = boxConfig.appFolderId;
   var url = boxConfig.upload_url + '/files/content';
@@ -233,48 +259,8 @@ var boxUpload = function(req, cb, failcb ) {
       return cb(resp);
     }
   });
-  /*
-   var form = post.form();
-   form.append('file', fs.createReadStream(doc.path), {
-   name: doc.name
-   ,parent: { pid: parent }
-   });
-   jq.ajax(url, {
-
-   method: 'POST'
-   })
-   .done ( function (data, textStatus, jqXHR) {
-   console.log('contents ' + data);
-   res.send(data);
-   })
-   .fail( function( jqXHR, textStatus, errorThrown ){
-   console.log(errorThrown);
-   console.log(jqXHR.status);
-   console.log(jqXHR.getAllResponseHeaders()['www-authenticate']);
-   next(errorThrown);
-
-
-   });
-   */
 };
 
-exports.showme = function(req, res, next) {
-  Box.findById(req.params.id, function (err, thing) {
-    if(err) { return next(err); }
-    if(!thing) { return res.send(404); }
-    return res.json(thing);
-  });
-};
-
-// Creates a new thing in the DB.
-exports.create = function(req, res) {
-  Box.create(req.body, function(err, thing) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, thing);
-  });
-};
-
-// Updates an existing thing in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   Box.findById(req.params.id, function (err, thing) {
