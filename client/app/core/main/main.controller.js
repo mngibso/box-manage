@@ -4,16 +4,27 @@
 
   angular.module('manageBox.core.main')
     .controller('manageBox.core.main.MainCtrl',
-    ['$scope', '$upload', 'manageBox.common.service.socket.SocketService','manageBox.common.service.ThingAPIService',
-      MainController]);
+    ['$scope'
+      ,'$upload'
+      ,'manageBox.common.service.socket.SocketService'
+      ,'manageBox.common.service.ThingAPIService'
+      ,'manageBox.common.service.BoxAPIService'
+      ,MainController]);
 
-  function MainController($scope, $upload, socket, thing) {
+  function MainController($scope, $upload, socket, thing, box) {
     $scope.awesomeThings = [];
+    $scope.boxDocuments = [];
+
+    box.contents().then(function(resp){
+      $scope.boxDocuments = resp.data.entries;
+      socket.syncUpdates('box', $scope.boxDocuments);
+    });
 
     thing.get().then(function(things){
       $scope.awesomeThings = things;
       socket.syncUpdates('thing', $scope.awesomeThings);
     });
+
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;
@@ -29,6 +40,7 @@
     $scope.$on('$destroy', function () {
       console.log('destroy');
       socket.unsyncUpdates('thing');
+      socket.unsyncUpdates('box');
     });
 
     $scope.$watch('files', function () {

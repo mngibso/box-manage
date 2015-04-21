@@ -5,17 +5,22 @@
 'use strict';
 
 var box = require('./box.model.js');
+var Emitter = require('events').EventEmitter;
+var emitter = exports.emitter =  new Emitter();
 
 exports.register = function(socket) {
-  box.schema.post('save', function (doc) {
+  //box.schema.post('save', function (doc) {
+  emitter.on( 'boxCreate', function( doc ) {
+    console.log('box create emitted');
     onSave(socket, doc);
   });
-  box.schema.post('remove', function (doc) {
+  emitter.on('boxRemove', function (doc) {
     onRemove(socket, doc);
   });
 };
 
 function onSave(socket, doc, cb) {
+  console.log('box:save update socket');
   socket.emit('box:save', doc);
 }
 

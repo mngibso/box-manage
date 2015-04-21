@@ -35,10 +35,13 @@ angular.module('manageBox.common.service.socket', [])
          * Syncs item creation/updates on 'model:save'
          */
         socket.on(modelName + ':save', function (item) {
-          var oldItem = _.find(array, {_id: item._id});
+          if(item._id)
+            var oldItem = _.find(array, {_id: item._id});
+          else
+            var oldItem = _.find(array, {id: item.id});
           var index = array.indexOf(oldItem);
           var event = 'created';
-
+          console.log('modelName ' + modelName);
           // replace oldItem if it exists
           // otherwise just add item to the collection
           if (oldItem) {

@@ -29,18 +29,10 @@
       console.log('call contents');
       //ToDo - put api base url in config
       //var url = self.config.base_url + '/folders/' + folder_id + '/items';
-      var url = 'http://localhost:9000' + '/api/box/folders/' + folder_id + '/items';
-      var conf = {headers: {
-        'Authorization': 'Bearer ' + token
-      } };
-      console.log('contents');
-      console.log(url) ;
-      console.log(conf) ;
-
+      //var url = 'http://localhost:9000' + '/api/box/folders/' + folder_id + '/items';
+      var url = '/api/box/';
       //return $http.get( self.config.base_url + '/folders/' + folder_id + '/items', conf);
       return $http.get(url);
     }
-
-
   }
 })();

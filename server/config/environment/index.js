@@ -62,7 +62,7 @@ var all = {
     clientID:     process.env.BOX_CLIENT_ID || 'id'
     ,clientSecret: process.env.BOX_CLIENT_SECRET || 'secret'
     ,refreshToken: process.env.BOX_REFRESH_TOKEN || 'refresh_token'
-    ,baseFolderId: process.env.BOX_APP_FOLDER_ID || 'refresh_token'
+    ,appFolderId: process.env.BOX_APP_FOLDER_ID || 'refresh_token'
     ,access_token: process.env.BOX_ACCESS_TOKEN || 'Dw3zYO6Bss1LPMek8cwnyLFlnCJfuybAUkBkq9NGionjsvu4oyQZifTY8I8ipAtW'
     ,base_url: 'https://api.box.com/2.0'
     ,upload_url: 'https://upload.box.com/api/2.0'
