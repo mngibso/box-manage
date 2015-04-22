@@ -33,7 +33,14 @@
         var url = resp.data.url;
         $window.open(url);
       });
-    }
+    };
+
+    $scope.deleteDocument = function(doc){
+      console.log('Delete  ' + doc.id) ;
+      box.delete(doc.id).then(function(resp){
+        console.log(resp);
+      });
+    };
 
     $scope.addThing = function() {
       if($scope.newThing === '') {

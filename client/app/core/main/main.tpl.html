@@ -1,22 +1,81 @@
 <div ng-include="'app/common/navbar/navbar.tpl.html'"></div>
 
-<!--
 <header class="hero-unit" id="banner">
   <div class="container">
-    <h1>'Allo, 'Allo!</h1>
-    <p class="lead">Kick-start your next web app with Angular Fullstack</p>
+    <p class="lead">This is my sandbox.  Created using Yeoman angular-fullstack.</p>
+    <!--
+    <p>Features</p>
+    <ul>
+      <li>Node.js backend implements REST api.</li>
+      <li>Angular.js frontend</li>
+      <li>Box.com API - upload Documents to a Box account!</li>
+      <li>socket.io - Things and files are synced across all clients.</li>
+      <li>Heroku deployment.  Grunt build is done on Heroku, don't save dist to Git</li>
+      <li>Yeoman scaffolding</li>
+      <li>Yeoman scaffolding</li>
+      </ul>
     <img src="assets/images/yeoman.png" alt="I'm Yeoman">
+    -->
   </div>
+  <style>
+    .btn-block-split {
+      display:block;
+      width:10%;
+    }
+    .btn-block-action {
+      display:block;
+      width:90%;
+    }
+    .btn-group-file {
+      margin-bottom: 4px;
+    }
+  </style>
 </header>
--->
 
 <div class="container">
 
   <div class="row">
+
+    <div class="col-sm-8">
+      <h1 class="page-header">Files:</h1>
+
+
+      <div class="btn-group btn-group-file nav nav-stacked col-md-4 col-lg-4 col-sm-6" dropdown ng-repeat="doc in boxDocuments">
+        <button type="button" ng-click="downloadDocument(doc)" class="btn btn-danger btn-block-action">{{doc.name}}</button>
+        <button type="button" class="btn btn-danger dropdown-toggle btn-block-split" dropdown-toggle>
+          <span class="caret"></span>
+          <span class="sr-only">Split button!</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#" ng-click="downloadDocument(doc)">Download</a></li>
+          <li><a href="#" ng-click="deleteDocument(doc)">Delete</a></li>
+        </ul>
+      </div>
+
+      <!--
+      <hr/>
+      <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="doc in boxDocuments">
+        <li class="btn btn-default">
+          <a   href="#" tooltip="download {{doc.name}}" ng-click="downloadDocument(doc)">{{doc.name}}
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+        </a>
+        </li>
+      </ul>
+      -->
+
+    <label>Uses BOX api to store files in a central Box account.  Syncs in realtime across clients</label>
+    <div class="form-group">
+      <div class="btn btn-primary" ng-file-select ng-model="files" ng-multiple="false">Upload File</div>
+    </div>
+    </div>
+
     <div class="col-sm-3">
       <h2>Things to do:</h2>
       <ul class="nav nav-tabs nav-stacked" ng-repeat="thing in awesomeThings">
-        <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
+        <li>{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></li>
       </ul>
       <form class="thing-form">
         <label>Syncs in realtime across clients</label>
@@ -28,18 +87,6 @@
         </p>
       </form>
     </div>
-    <div class="col-sm-8">
-      <h1 class="page-header">Files:</h1>
-      <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="doc in boxDocuments">
-        <li class="btn btn-default"><a href="#" tooltip="download {{doc.name}}" ng-click="downloadDocument(doc)">{{doc.name}}
-          <!--<button type="button" class="btn close" ng-click="deleteDocument(doc)">&times;</button>--></a></li>
-      </ul>
-    </div>
-
-    <label>Uses BOX api to store files in a central Box account.  Syncs in realtime across clients</label>
-    <div class="form-group">
-      <div class="btn btn-primary" ng-file-select ng-model="files" ng-multiple="false">Upload File</div>
-    </div>
 
   </div>
 
@@ -48,8 +95,8 @@
 
 <footer class="footer">
   <div class="container">
-      <p>Angular Fullstack v2.0.13 |
-        <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-         <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+      <p>Based on <a href="https://github.com/DaftMonk/generator-angular-fullstack">Angular Fullstack v2.0.13</a> |
+      <a href="https://github.com/mngibso/box-manage">This project on Github</a></p>
+
   </div>
 </footer>

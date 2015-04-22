@@ -14,6 +14,6 @@ router.get('/:file_id', controller.download); //returns a link to the file
 router.post('/', multipartMiddleware, controller.upload);
 //router.put('/:id', controller.update);
 //router.patch('/:id', controller.update);
-//router.delete('/:id', controller.destroy);
+router.delete('/:file_id', controller.destroy);
 
 module.exports = router;

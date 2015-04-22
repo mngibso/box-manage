@@ -3,6 +3,7 @@
 (function(){
 angular.module('manageBox.core.main', [
   'ui.router'
+  ,'ui.bootstrap'
   ,'angularFileUpload'
 ])
   .config(['$stateProvider', function ($stateProvider) {

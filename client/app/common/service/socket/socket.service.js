@@ -59,7 +59,10 @@ angular.module('manageBox.common.service.socket', [])
          */
         socket.on(modelName + ':remove', function (item) {
           var event = 'deleted';
-          _.remove(array, {_id: item._id});
+          if(item._id)
+            _.remove(array, {_id: item._id});
+          else
+            _.remove(array, {id: item.id});
           cb(event, item, array);
         });
       },

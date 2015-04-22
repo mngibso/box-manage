@@ -13,7 +13,8 @@ exports.register = function(socket) {
   emitter.on( 'boxCreate', function( doc ) {
     onSave(socket, doc);
   });
-  emitter.on('boxRemove', function (doc) {
+  emitter.on('boxDestroy', function (doc) {
+    console.log('boxDestroy emmitted ' + doc.id);
     onRemove(socket, doc);
   });
 };
@@ -23,5 +24,6 @@ function onSave(socket, doc, cb) {
 }
 
 function onRemove(socket, doc, cb) {
+  console.log('boxDestroy onRemove ' + doc.id);
   socket.emit('box:remove', doc);
 }

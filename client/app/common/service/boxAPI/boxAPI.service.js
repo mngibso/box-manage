@@ -16,6 +16,7 @@
        token: token
       ,contents: contents
       ,get: download
+      ,delete: destroy
     };
 
     // obtain the access token
@@ -24,14 +25,18 @@
       return $http.get( '/api/box/token');
     }
 
-    //curl https://api.box.com/2.0/folders/FOLDER_ID/items?limit=2&offset=0  -H "Authorization: Bearer ACCESS_TOKEN"
     //ToDo - add limit and offset for pagination
-    function contents(folder_id, token) {
+    function contents() {
       var url = '/api/box/';
       return $http.get(url);
     }
 
-    //curl -L https://api.box.com/2.0/files/FILE_ID/content
+    function destroy(file_id) {
+      console.log('call destroy');
+      var url = '/api/box/' + file_id;
+      return $http.delete(url);
+    }
+
     function download(file_id) {
       console.log('call contents');
       var url = '/api/box/' + file_id;
