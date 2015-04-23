@@ -38,9 +38,10 @@
 
     <div class="col-sm-8">
       <h1 class="page-header">Files:</h1>
-
+      <div><label>Enable popups to download files.</label></div>
 
       <div class="btn-group btn-group-file nav nav-stacked col-md-4 col-lg-4 col-sm-6" dropdown ng-repeat="doc in boxDocuments">
+        <!-- ToDo - this should be a directive -->
         <button type="button" ng-click="downloadDocument(doc)" class="btn btn-danger btn-block-action">{{doc.name}}</button>
         <button type="button" class="btn btn-danger dropdown-toggle btn-block-split" dropdown-toggle>
           <span class="caret"></span>
@@ -52,24 +53,11 @@
         </ul>
       </div>
 
-      <!--
-      <hr/>
-      <ul class="nav nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="doc in boxDocuments">
-        <li class="btn btn-default">
-          <a   href="#" tooltip="download {{doc.name}}" ng-click="downloadDocument(doc)">{{doc.name}}
-            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-        </a>
-        </li>
-      </ul>
-      -->
-
     <label>Uses BOX api to store files in a central Box account.  Syncs in realtime across clients</label>
     <div class="form-group">
-      <div class="btn btn-primary" ng-file-select ng-model="files" ng-multiple="false">Upload File</div>
+      <div class="btn btn-primary" ng-file-select ng-model="files" ng-multiple="false" ng-disabled="!isLoggedIn">Upload File</div>
     </div>
+      <p ng-if="!isLoggedIn">You must <a href="/login">login</a> to load files.</p>
     </div>
 
     <div class="col-sm-3">

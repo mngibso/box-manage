@@ -10,11 +10,13 @@
       ,'manageBox.common.service.socket.SocketService'
       ,'manageBox.common.service.ThingAPIService'
       ,'manageBox.common.service.BoxAPIService'
+      ,'manageBox.common.service.AuthService'
       ,MainController]);
 
-  function MainController($scope, $window, $upload, socket, thing, box) {
+  function MainController($scope, $window, $upload, socket, thing, box, auth) {
     $scope.awesomeThings = [];
     $scope.boxDocuments = [];
+    $scope.isLoggedIn = auth.isLoggedIn();
 
     box.contents().then(function(resp){
       $scope.boxDocuments = resp.data.entries;
