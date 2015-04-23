@@ -191,6 +191,7 @@ module.exports = function (grunt) {
     },
 
     // Debugging with node inspector
+    /*
     'node-inspector': {
       custom: {
         options: {
@@ -198,7 +199,7 @@ module.exports = function (grunt) {
         }
       }
     },
-
+    */
     // Use nodemon to run server in debug mode with an initial breakpoint
     nodemon: {
       debug: {
@@ -415,8 +416,8 @@ module.exports = function (grunt) {
       ],
       debug: {
         tasks: [
-          'nodemon',
-          'node-inspector'
+          'nodemon'
+          //,'node-inspector'
         ],
         options: {
           logConcurrentOutput: true
