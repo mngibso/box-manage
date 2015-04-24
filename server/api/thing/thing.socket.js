@@ -7,6 +7,7 @@
 var thing = require('./thing.model');
 
 exports.register = function(socket) {
+  console.log('Register Thing Socket');
   thing.schema.post('save', function (doc) {
     onSave(socket, doc);
   });

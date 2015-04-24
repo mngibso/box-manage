@@ -7,7 +7,7 @@ var BoxToken = require('./box.model').BoxToken;
 var boxConfig = require('../../config/environment').box;
 var fs = require('fs');
 var async = require('async');
-var emitter = require('./box.socket.js').emitter;
+var emitter = require('./box.socket.js').Emitter.getInstance();
 
 jq.support.cors = true;
 //Refresh the Box access and refresh tokens
@@ -202,7 +202,13 @@ exports.upload = function(req, res, next) {
     res.send(data);
   });
 };
-
+//ToDo - can I use streams here?
+/*
+ app.post('myroute', function (req, res) {
+ var request = require('request');
+ req.pipe(request.post('/my/path:5000')).pipe(res);
+ });
+ */
 var boxUpload = function(req, cb, failcb ) {
   var doc = req.files.file;
 

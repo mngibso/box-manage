@@ -5,12 +5,37 @@
 'use strict';
 
 var box = require('./box.model.js');
-var Emitter = require('events').EventEmitter;
+var EventEmitter = require('events').EventEmitter;
 //ToDo - make this a singleton
-var emitter = exports.emitter =  new Emitter();
+
+
+//Singleton emitter
+var Emitter = (function () {
+  var emitter;
+
+  function createInstance() {
+    var object =  new EventEmitter();
+    return object;
+  }
+
+  return {
+    getInstance: function () {
+      if (!emitter) {
+        emitter = createInstance();
+        console.log('create emitter');
+      }
+      console.log('return emitter');
+      return emitter;
+    }
+  };
+})();
+
+exports.Emitter = Emitter;
 
 exports.register = function(socket) {
-  //box.schema.post('save', function (doc) {
+
+  console.log('Register Box Emitter');
+  var emitter = Emitter.getInstance();
   emitter.on( 'boxCreate', function( doc ) {
     onSave(socket, doc);
   });
