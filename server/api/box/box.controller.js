@@ -1,14 +1,12 @@
 'use strict';
 
-require('./box.model');
 var request = require('request');
 var jq = require('jquery');
 var http = require('http');
-var BoxToken = require('mongoose').model('BoxToken');
+var BoxToken = require('./box.model').BoxToken;
 var boxConfig = require('../../config/environment').box;
 var fs = require('fs');
 var async = require('async');
-//var Emitter = require('events').EventEmitter;
 var emitter = require('./box.socket.js').emitter;
 
 jq.support.cors = true;
@@ -53,35 +51,6 @@ exports.token = function(req, res, next){
     function(err) { next(err); });
 };
 
-//get a new access token
-//Access tokens
-//curl https://api.box.com/oauth2/token -d
-// 'client_id=xxx&
-// client_secret=yyy&grant_type=refresh_token&
-// refresh_token=zzz' -X POST
-//Response:
-/*
- {"access_token":"xxx",
- "expires_in":4126,
- "restricted_to":[
- {
- "scope":"folder_readwrite",
- "object":{
- "type":"folder",
- "id":"nnn",
- "sequence_id":"0",
- "etag":"0",
- "name":"manage-noe-box"
- }
- }
- ],"refresh_token":"yyy",
- "token_type":"bearer"
- }
- */
-//request.post('http://service.com/upload', {form:{key:'value'}})
-
-
-
 //curl https://api.box.com/2.0/folders/FOLDER_ID/items?limit=2&offset=0  -H "Authorization: Bearer ACCESS_TOKEN"
 //ToDo - add limit and offset for pagination
 //Get folder contents
@@ -97,7 +66,7 @@ exports.contents = function(req, res, next) {
     res.send(data);
   })
     .fail( function( jqXHR, textStatus, errorThrown ){
-      console.log(jqXHR.getAllResponseHeaders()['www-authenticate']);
+      console.log(jqXHR.getResponseHeader('www-authenticate'));
       next(errorThrown);
 
 
@@ -167,6 +136,7 @@ exports.destroy = function(req, res, next) {
  -F attributes='{"name":"tigers.jpeg", "parent":{"id":"11446498"}}' \
  -F file=@myfile.jpg
  */
+
 exports.upload = function(req, res, next) {
   //Try to upload, if 401, refresh token and try again
   async.waterfall([
@@ -188,10 +158,8 @@ exports.upload = function(req, res, next) {
         , function (err) {
           callback(err);
         });
-      //callback(null, 'one', 'two');
     }
     , function(retry, response, callback) {
-      // arg1 now equals 'one' and arg2 now equals 'two'
       if(retry) {
         refreshToken(function(access){
             callback(null, true, null);
@@ -205,7 +173,6 @@ exports.upload = function(req, res, next) {
       }
     },
     function(retry, response, callback) {
-      // arg1 now equals 'three'
       if(retry){
         //retry the upload
         boxUpload(req, function (response) {
@@ -271,7 +238,7 @@ var boxUpload = function(req, cb, failcb ) {
 };
 
 
-//Retry ajax requests exactly ONCE
+// If box api 401, refresh token and retry
 jq.ajaxPrefilter(function(opts, originalOpts, jqXHR) {
   // you could pass this option in on a "retry" so that it doesn't
   // get all recursive on you.

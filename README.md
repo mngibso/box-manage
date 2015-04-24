@@ -6,6 +6,8 @@ Used angular-fullstack.  Sandbox for:
 * Deploy to Heroku with grunt without adding the dist/ directory to git.
 * Use Yeoman
 
+Demo - http://manage-box.herokuapp.com/
+
 ## Best Practices?
 
 I found many things labled "best practices" online, some of it conflicting. I want try out the practices that made the most sense to me and see how they work in a "real" project.

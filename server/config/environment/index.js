@@ -40,6 +40,13 @@ var all = {
       }
     }
   },
+  mongobox: {
+    options: {
+      db: {
+        safe: true
+      }
+    }
+  },
 
   facebook: {
     clientID:     process.env.FACEBOOK_ID || 'id',

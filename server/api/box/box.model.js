@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    mongo = require('../../components/database'),
+    mongoBox = mongo.mongoBox;
 
 var BoxSchema = new Schema({
   name: String,
@@ -14,8 +16,6 @@ var BoxTokenSchema = new Schema({
   audit: {    //audit trail
     addedOn: {'type': Date, 'default': Date.now},
     updatedOn: {'type': Date, 'default': Date.now}
-    //owner: {'type': mongoose.Schema.Types.ObjectId, 'ref': 'BusinessEntity'},    //who is the business that owns the video/product
-    //updatedBy: {'type': mongoose.Schema.Types.ObjectId, 'ref': 'BusinessEntity'}    //who is the business that owns the video/product
   }
 });
 BoxTokenSchema.pre('save', function (next, req, callback) {
@@ -26,5 +26,5 @@ BoxTokenSchema.pre('save', function (next, req, callback) {
   next (callback);
 });
 
-module.exports = mongoose.model('Box', BoxSchema);
-module.exports = mongoose.model('BoxToken', BoxTokenSchema);
+exports.BoxToken = mongoBox.model('BoxToken', BoxTokenSchema);
+

@@ -6,6 +6,7 @@
 
 var box = require('./box.model.js');
 var Emitter = require('events').EventEmitter;
+//ToDo - make this a singleton
 var emitter = exports.emitter =  new Emitter();
 
 exports.register = function(socket) {

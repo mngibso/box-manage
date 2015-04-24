@@ -7,6 +7,8 @@ module.exports = {
   mongo: {
     uri: 'mongodb://localhost/managebox-dev'
   },
-
+  mongobox: {
+    uri:    process.env.BOX_MONGOLAB_URI
+  },
   seedDB: true
 };
