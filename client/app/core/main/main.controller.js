@@ -16,7 +16,7 @@
   function MainController($scope, $window, $upload, socket, thing, box, auth) {
     $scope.awesomeThings = [];
     $scope.boxDocuments = [];
-    $scope.isLoggedIn = auth.isLoggedIn();
+    $scope.isLoggedIn = auth.isLoggedIn;
 
     box.contents().then(function(resp){
       $scope.boxDocuments = resp.data.entries;
@@ -81,8 +81,7 @@
             console.log('progress: ' + progressPercentage + '% ' +
               evt.config.file.name);
           }).success(function (data, status, headers, config) {
-            console.log('file ' + config.file.name + 'uploaded. Response: ' +
-              JSON.stringify(data));
+            console.log('file ' + config.file.name + 'uploaded. ');
           });
         }
       }
