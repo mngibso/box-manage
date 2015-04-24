@@ -1,12 +1,13 @@
 # box-manage
-Used angular-fullstack.  Sandbox for:
+This is a work in progress. Currently it is my sandbox for:
 
-* Create a service that allows Angular apps to obtain a Box access (authentication) token to upload and access content on behalf of a Box user.
-* Experiment with "best practices" for Angular found in various videos.  
+* Creating a box API for node utilizing their Provisioning feature. This allows an app to upload and access content on behalf of a Box user.
+* Experiment with "best practices" for Angular found on various sites.  
 * Deploy to Heroku with grunt without adding the dist/ directory to git.
-* Use Yeoman
+* Create boilerplate with Yoeman
+* Integrate SB Admin Angular dashboard.
 
-Demo - http://manage-box.herokuapp.com/
+Live - http://manage-box.herokuapp.com/
 
 ## Best Practices?
 
