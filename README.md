@@ -1,5 +1,5 @@
 # box-manage
-This is a work in progress. Currently it is my sandbox for:
+This project is constantly refactored. Currently it is my sandbox for:
 
 * Creating a box API for node utilizing their Provisioning feature. This allows an app to upload and access content on behalf of a Box user.
 * Experiment with "best practices" for Angular found on various sites.  
