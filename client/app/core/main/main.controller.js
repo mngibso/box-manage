@@ -28,6 +28,7 @@
       socket.syncUpdates('thing', $scope.awesomeThings);
     });
 
+    //Get the doc url from the server, open new page with the doc url
     $scope.downloadDocument = function(doc){
      console.log('Download  ' + doc.id) ;
       box.get(doc.id).then(function(resp){
@@ -73,7 +74,7 @@
           $upload.upload({
             url: '/api/box/',
             fields: {
-              'username': '$scope.username'
+              'name': file.name
             },
             file: file
           }).progress(function (evt) {

@@ -1,5 +1,6 @@
 'use strict';
 
+//ToDo - use 'controllerAs'
 (function(){
 angular.module('manageBox.core.main', [
   'ui.router'
