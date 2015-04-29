@@ -5,6 +5,7 @@
 angular.module('manageBox.core.main', [
   'ui.router'
   ,'ui.bootstrap'
+  ,'manageBox.common.directive.boxFile'
   ,'angularFileUpload'
 ])
   .config(['$stateProvider', function ($stateProvider) {

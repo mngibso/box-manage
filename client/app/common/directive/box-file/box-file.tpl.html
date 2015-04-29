@@ -1,0 +1,9 @@
+<button type="button" ng-click="boxFileCtrl.downloadDocument(doc)" class="btn btn-danger btn-block-action">{{doc.name}}</button>
+<button type="button" class="btn btn-danger dropdown-toggle btn-block-split" dropdown-toggle>
+<span class="caret"></span>
+<span class="sr-only">Split button!</span>
+        </button>
+<ul class="dropdown-menu" role="menu">
+  <li><a href="#" ng-click="boxFileCtrl.downloadDocument(doc)">Download</a></li>
+  <li><a href="#" ng-click="boxFileCtrl.deleteDocument(doc)">Delete</a></li>
+  </ul>

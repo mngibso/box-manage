@@ -41,17 +41,7 @@
       <h1 class="page-header">Files:</h1>
       <div><label>Enable popups to download files.</label></div>
 
-      <div class="btn-group btn-group-file nav nav-stacked col-md-4 col-lg-4 col-sm-6" dropdown ng-repeat="doc in boxDocuments">
-        <!-- ToDo - this should be a directive -->
-        <button type="button" ng-click="downloadDocument(doc)" class="btn btn-danger btn-block-action">{{doc.name}}</button>
-        <button type="button" class="btn btn-danger dropdown-toggle btn-block-split" dropdown-toggle>
-          <span class="caret"></span>
-          <span class="sr-only">Split button!</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="#" ng-click="downloadDocument(doc)">Download</a></li>
-          <li><a href="#" ng-click="deleteDocument(doc)">Delete</a></li>
-        </ul>
+      <div box-file doc="doc" ng-repeat="doc in boxDocuments" class="btn-group btn-group-file nav nav-stacked col-md-4 col-lg-4 col-sm-6" dropdown>
       </div>
 
     <label>Uses BOX api to store files in a central Box account.  Syncs in realtime across clients</label>

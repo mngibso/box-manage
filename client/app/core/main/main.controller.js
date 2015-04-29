@@ -36,19 +36,6 @@
     });
 
     //Get the doc url from the server, open new page with the doc url
-    $scope.downloadDocument = function(doc){
-     console.log('Download  ' + doc.id) ;
-      box.get(doc.id).then(function(resp){
-        var url = resp.data.url;
-        $window.open(url);
-      });
-    };
-
-    $scope.deleteDocument = function(doc){
-      console.log('Delete  ' + doc.id) ;
-      box.delete(doc.id).then(function(resp){
-      });
-    };
 
     $scope.addThing = function() {
       if($scope.newThing === '') {
