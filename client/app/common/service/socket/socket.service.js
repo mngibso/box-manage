@@ -2,7 +2,9 @@
 'use strict';
 
 angular.module('manageBox.common.service.socket', [])
-  .factory('manageBox.common.service.socket.SocketService', ['socketFactory', function(socketFactory) {
+  .factory('manageBox.common.service.socket.SocketService',
+  ['$rootScope', 'socketFactory','manageBox.common.service.NotificationService',
+    function($rootScope, socketFactory, noty) {
 
     // socket.io now auto-configures its connection when we ommit a connection url
     var ioSocket = io('', {
@@ -49,6 +51,8 @@ angular.module('manageBox.common.service.socket', [])
             event = 'updated';
           } else {
             array.push(item);
+            $rootScope.$broadcast(modelName + 'Added', item);
+            //noty.alert(modelName + ' added');
           }
 
           cb(event, item, array);
@@ -63,6 +67,8 @@ angular.module('manageBox.common.service.socket', [])
             _.remove(array, {_id: item._id});
           else
             _.remove(array, {id: item.id});
+          //noty.alert(modelName + ' deleted');
+          $rootScope.$broadcast(modelName + 'Deleted', item);
           cb(event, item, array);
         });
       },

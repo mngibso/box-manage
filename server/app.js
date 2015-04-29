@@ -16,15 +16,20 @@ var app = express();
 function clientErrorHandler(err, req, res, next) {
   console.log('clientErrorHandler');
   if (req.xhr) {
-    res.status(500).send({ error: 'Something blew up!' });
+    if( err.status ) {
+      res.status(err.status).send({ error: err.error || err });
+    } else {
+      res.status(500).send({error: { message: 'Unknown Error'} });
+    }
   } else {
     next(err);
   }
 }
 function errorHandler(err, req, res, next) {
   console.log('errorHandler');
-  res.status(500);
-  res.send('Error')
+  var message = err.message || 'Unknown Error';
+  res.status(err.status || 500);
+  res.send(message);
   //ToDo - error template
   //res.render('error', { error: err });
 }

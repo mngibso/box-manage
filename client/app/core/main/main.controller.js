@@ -6,17 +6,24 @@
     .controller('manageBox.core.main.MainCtrl',
     ['$scope'
       ,'$window'
-      ,'$upload'
       ,'manageBox.common.service.socket.SocketService'
       ,'manageBox.common.service.ThingAPIService'
       ,'manageBox.common.service.BoxAPIService'
       ,'manageBox.common.service.AuthService'
+      ,'manageBox.common.service.NotificationService'
       ,MainController]);
 
-  function MainController($scope, $window, $upload, socket, thing, box, auth) {
+  function MainController($scope, $window, socket, thing, box, auth, noty) {
     $scope.awesomeThings = [];
     $scope.boxDocuments = [];
     $scope.isLoggedIn = auth.isLoggedIn;
+
+    var unbindeAdd = $scope.$on('boxAdded', function(event, item){
+      noty.alert("'" + item.name +"' added", {timeout: 3000});
+    });
+    var unbindeDelete = $scope.$on('boxDeleted', function(event, item){
+      noty.alert("File deleted", {timeout: 3000});
+    });
 
     box.contents().then(function(resp){
       $scope.boxDocuments = resp.data.entries;
@@ -58,12 +65,13 @@
     };
 
     $scope.$on('$destroy', function () {
-      console.log('destroy');
+      console.log('destroy -unsync');
       socket.unsyncUpdates('thing');
       socket.unsyncUpdates('box');
+      unbind();
     });
 
-    $scope.$watch('files', function () {
+    var unbind = $scope.$watch('files', function () {
       $scope.upload($scope.files);
     });
 
@@ -71,13 +79,8 @@
       if (files && files.length) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          $upload.upload({
-            url: '/api/box/',
-            fields: {
-              'name': file.name
-            },
-            file: file
-          }).progress(function (evt) {
+          box.upload(file)
+            .progress(function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' +
               evt.config.file.name);

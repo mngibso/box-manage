@@ -14,7 +14,7 @@ jq.support.cors = true;
 var refreshToken = function(cb, failcb) {
   BoxToken.findOne(function (err, token) {
     if (err) {
-      return fail(err);
+      return failcb(err);
     }
     var form = {
       grant_type: 'refresh_token'
@@ -47,6 +47,17 @@ var refreshToken = function(cb, failcb) {
 };
 
 exports.token = function(req, res, next){
+  //non 401 error
+  try {
+    // Box error?
+    var obj = JSON.parse(response.body);
+    if (obj.error){
+      return callback(obj.error);
+    }
+  } catch(err) {}
+
+  //Return error
+  callback({message: 'Unknown Box API error', status: response.statusCode});
   refreshToken(function(data) { res.send(data); },
     function(err) { next(err); });
 };
@@ -151,10 +162,19 @@ exports.upload = function(req, res, next) {
             //Retry
             return callback(null, true, null)
           }
+
           //non 401 error
-          callback({error: response.statusCode});
+          try {
+            // Box error?
+            var obj = JSON.parse(response.body);
+            if (obj.type == 'error'){
+              return callback(obj);
+            }
+          } catch(err) {}
+
+          //Return error
+          callback({message: 'Unknown Box API error', status: response.statusCode});
         }
-        //ERROR
         , function (err) {
           callback(err);
         });

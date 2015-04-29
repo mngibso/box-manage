@@ -10,6 +10,8 @@ angular.module('manageBox', [
   'manageBox.common.service.thingAPI',
   'manageBox.common.service.boxAPI',
   'manageBox.common.service.sessionStorage',
+  'manageBox.common.service.notification',
+  'manageBox.common.directive.httpError',
   'manageBox.core.main',
   'manageBox.core.admin',
   'manageBox.core.account',
@@ -32,18 +34,18 @@ angular.module('manageBox', [
     $httpProvider.interceptors.push('httpErrorsInterceptor');
     //$httpProvider.defaults.useXDomain = true;
     //delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    console.log('done');
   })
   .factory('httpErrorsInterceptor', function ($q, $rootScope) {
     return {
       responseError: function (response) {
         console.log('httpErrorsInterceptor');
+        var errObj = response && response.data && response.data.error || {};
         var config = response.config;
         if (config.bypassErrorInterceptor) {
           return $q.reject(response);
         }
         //ToDo - listen for httpError
-        $rootScope.$broadcast('httpError', response.status || 500, response.statusText || 'unknown');
+        $rootScope.$broadcast('httpError', response.status || 500, response.statusText || 'unknown', errObj.message || 'Unknown server error.');
         console.log(response.statusText || 'unknown');
         return $q.reject(response);
       }
@@ -56,6 +58,7 @@ angular.module('manageBox', [
       request: function (config) {
         config.headers = config.headers || {};
         if ($cookieStore.get('token')) {
+          console.log('Add auth token');
           config.headers.Authorization = 'Bearer ' + $cookieStore.get('token');
         }
         return config;
@@ -63,6 +66,7 @@ angular.module('manageBox', [
 
       // Intercept 401s and redirect you to login
       responseError: function(response) {
+        console.log('401 error');
         if(response.status === 401) {
           $location.path('/login');
           // remove any stale tokens
