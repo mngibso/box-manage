@@ -18,10 +18,10 @@
     $scope.boxDocuments = [];
     $scope.isLoggedIn = auth.isLoggedIn;
 
-    var unbindeAdd = $scope.$on('boxAdded', function(event, item){
+    var unbindAdd = $scope.$on('boxAdded', function(event, item){
       noty.alert("'" + item.name +"' added", {timeout: 3000});
     });
-    var unbindeDelete = $scope.$on('boxDeleted', function(event, item){
+    var unbindDelete = $scope.$on('boxDeleted', function(event, item){
       noty.alert("File deleted", {timeout: 3000});
     });
 
