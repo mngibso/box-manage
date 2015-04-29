@@ -39,7 +39,6 @@
     $scope.downloadDocument = function(doc){
      console.log('Download  ' + doc.id) ;
       box.get(doc.id).then(function(resp){
-        console.log(resp.data)
         var url = resp.data.url;
         $window.open(url);
       });
@@ -48,7 +47,6 @@
     $scope.deleteDocument = function(doc){
       console.log('Delete  ' + doc.id) ;
       box.delete(doc.id).then(function(resp){
-        console.log(resp);
       });
     };
 
@@ -56,12 +54,12 @@
       if($scope.newThing === '') {
         return;
       }
-      thing.add( $scope.newThing).then(function(){ console.log('add thing');});
+      thing.add( $scope.newThing).then(function(){ });
       $scope.newThing = '';
     };
 
     $scope.deleteThing = function(theThing) {
-      thing.delete( theThing._id ).then(function(){ console.log('delete thing');});
+      thing.delete( theThing._id ).then(function(){ });
     };
 
     $scope.$on('$destroy', function () {
@@ -69,6 +67,8 @@
       socket.unsyncUpdates('thing');
       socket.unsyncUpdates('box');
       unbind();
+      unbindAdd();
+      unbindDelete();
     });
 
     var unbind = $scope.$watch('files', function () {
