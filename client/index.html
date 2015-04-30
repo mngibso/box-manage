@@ -16,12 +16,18 @@
       <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
       <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
       <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+      <link rel="stylesheet" href="bower_components/angular-toggle-switch/angular-toggle-switch.css" />
+      <link rel="stylesheet" href="bower_components/metisMenu/dist/metisMenu.css" />
+      <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
       <link rel="stylesheet" href="app/common/service/modal/modal.css">
+      <link rel="stylesheet" href="app/common/styles/main.css">
+      <link rel="stylesheet" href="app/common/styles/sb-admin-2.css">
+      <link rel="stylesheet" href="app/common/styles/timeline.css">
       <link rel="stylesheet" href="app/core/account/login/login.css">
       <link rel="stylesheet" href="app/core/admin/admin.css">
       <link rel="stylesheet" href="app/core/main/main.css">
@@ -62,40 +68,57 @@
       <script src="bower_components/angular/angular.js"></script>
       <script src="bower_components/angular-resource/angular-resource.js"></script>
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+      <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/angular-touch/angular-touch.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
       <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+      <script src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+      <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+      <script src="bower_components/angular-toggle-switch/angular-toggle-switch.js"></script>
+      <script src="bower_components/metisMenu/dist/metisMenu.js"></script>
+      <script src="bower_components/Chart.js/Chart.js"></script>
+      <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
       <!-- endbower -->
       <script src="socket.io-client/socket.io.js"></script>
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
+      <script src="app/sb-admin-2.js"></script>
           <!-- injector:js -->
-          <script src="app/common/service/user.service.js"></script>
+          <script src="app/common/service/notyNotification/notyNotification.service.js"></script>
+          <script src="app/common/directive/box-file/box-file.directive.js"></script>
+          <script src="app/common/directive/dashboard/stats/stats.directive.js"></script>
+          <script src="app/common/directive/header/dashboard-header.directive.js"></script>
+          <script src="app/common/directive/header/header-notification/header-notification.directive.js"></script>
+          <script src="app/common/directive/http-error/http-error.directive.js"></script>
           <script src="app/common/directive/mongoose-error/mongoose-error.directive.js"></script>
-    <script src="app/common/directive/http-error/http-error.directive.js"></script>
-    <script src="app/common/directive/box-file/box-file.directive.js"></script>
+          <script src="app/common/directive/notifications/notifications.directive.js"></script>
+          <script src="app/common/directive/sidebar/dashboard-sidebar.directive.js"></script>
+          <script src="app/common/directive/sidebar/sidebar-search/sidebar-search.directive.js"></script>
+          <script src="app/common/directive/timeline/timeline.directive.js"></script>
+          <script src="app/core/dashboard/dashboard.js"></script>
           <script src="app/common/service/auth.service.js"></script>
           <script src="app/common/service/boxAPI/boxAPI.service.js"></script>
-    <script src="app/common/service/notyNotification/notyNotification.service.js"></script>
           <script src="app/common/service/modal/modal.service.js"></script>
+          <script src="app/common/directive/chat/chat.directive.js"></script>
           <script src="app/common/service/sessionStorage.service.js"></script>
           <script src="app/common/service/socket/socket.service.js"></script>
           <script src="app/common/service/thingAPI/thingAPI.service.js"></script>
-          <script src="app/core/admin/admin.js"></script>
+          <script src="app/common/service/user.service.js"></script>
           <script src="app/core/account/account.js"></script>
+          <script src="app/core/admin/admin.js"></script>
           <script src="app/core/main/main.js"></script>
           <script src="app/core/main/main.controller.js"></script>
           <script src="app/core/admin/admin.controller.js"></script>
           <script src="app/common/navbar/navbar.controller.js"></script>
           <script src="app/core/account/login/login.controller.js"></script>
+          <script src="app/core/dashboard/dashboard.controller.js"></script>
           <script src="app/core/account/signup/signup.controller.js"></script>
           <script src="app/core/account/settings/settings.controller.js"></script>
           <!-- endinjector -->
