@@ -1,7 +1,7 @@
 'use strict';
 
 (function(){
-  angular.module('manageBox.common.service.boxAPI', [])
+  angular.module('manageBox.common.service.boxAPI', ['angularFileUpload'])
     .factory('manageBox.common.service.BoxAPIService',
     ['$http'
       ,'$upload'

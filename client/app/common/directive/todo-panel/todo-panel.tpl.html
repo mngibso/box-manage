@@ -1,13 +1,13 @@
 <div class="chat-panel panel panel-default">
   <div class="panel-heading">
-    <i class="fa fa-bell fa-fw"></i>  ToDo Panel
+    <i class="fa fa-tasks fa-fw"></i>  ToDo List
   </div>
   <div class="panel-header" style="padding:10px 8px 0 8px;">
     <div class="input-group" >
       <input name="todo-input" id="todo-input" type="text" class="form-control input-sm" placeholder="Type your todo item here...">
             <span class="input-group-btn">
                 <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="addTodo($event)">
-                  Post
+                  Add
                 </button>
             </span>
     </div>
@@ -15,8 +15,10 @@
   <!-- /.panel-footer -->
   <div class="panel-body">
     <div class="list-group">
-      <a href="#" class="list-group-item"ng-repeat="thing in todos | orderBy:'-audit.addedOn' ">
-        <i class="fa fa-tasks fa-fw"></i> {{thing.name}}
+      <a href="#" class="delete-icon list-group-item"ng-repeat="thing in todos | orderBy:'-audit.addedOn'"
+         ng-click="itemDelete()(thing)"
+         data-toggle="tooltip" data-placement="right" title="Click to delete">
+        <i class="fa fa-fw"></i> {{thing.name}}
             <span class="pull-right text-muted small"><em am-time-ago="thing.audit.addedOn"></em>
             </span>
       </a>
