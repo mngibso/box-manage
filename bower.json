@@ -23,7 +23,8 @@
     "oclazyload": "~0.5.2",
     "angular-toggle-switch": "~1.2.1",
     "metisMenu": "~1.1.3",
-    "Charts.js": "*",
+    "chartjs": "*",
+    "angular-moment": "~0.10.x",
     "angular-chart.js": "~0.5.2"
   },
   "resolutions": {
