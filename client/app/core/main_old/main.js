@@ -2,7 +2,7 @@
 
 //ToDo - use 'controllerAs'
 (function(){
-angular.module('manageBox.core.main', [
+angular.module('manageBox.core.mainxxx', [
   'ui.router'
   ,'ui.bootstrap'
   ,'manageBox.common.directive.boxFile'

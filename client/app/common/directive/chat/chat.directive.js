@@ -11,7 +11,11 @@ angular.module('manageBox.common.directive.chat', [])
 		return {
         templateUrl:'app/common/directive/chat/chat.tpl.html',
         restrict: 'E',
-        replace: true
+        replace: true,
+        link: function($scope){
+          console.log('chatLink');
+         $scope.duh = function(){ alert('duh');}
+        }
     	}
 	});
 

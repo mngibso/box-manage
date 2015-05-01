@@ -1,9 +1,9 @@
 'use strict';
 
 (function(){
-
-  angular.module('manageBox.core.main')
-    .controller('manageBox.core.main.MainCtrl',
+alert('main.main');
+  angular.module('manageBox.core.mainxxx')
+    .controller('manageBox.core.main.MainCtrlXXX',
     ['$scope'
       ,'$window'
       ,'manageBox.common.service.socket.SocketService'
@@ -14,6 +14,7 @@
       ,MainController]);
 
   function MainController($scope, $window, socket, thing, box, auth, noty) {
+    console.log('main mainController')
     $scope.awesomeThings = [];
     $scope.boxDocuments = [];
     $scope.isLoggedIn = auth.isLoggedIn;

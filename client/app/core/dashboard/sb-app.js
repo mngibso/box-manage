@@ -35,11 +35,10 @@ angular
                 {
                     name:'manageBox',
                     files:[
-                      //'app/common/directive/header/dashboard-header.directive.js'
-                    //'scripts/directives/header/header.js',
-                    //'scripts/directives/header/header-notification/header-notification.js',
-                    //'scripts/directives/sidebar/sidebar.js',
-                    //'scripts/directives/sidebar/sidebar-search/sidebar-search.js'
+                      'app/common/directive/header/dashboard-header.directive.js',
+                      'app/common/directive/header/header-notification/header-notification.directive.js',
+                      'app/common/directive/sidebar/dashboard-sidebar.directive.js',
+                      'app/common/directive/sidebar/sidebar-search/sidebar-search.directive.js'
                     ]
                 }),
                 $ocLazyLoad.load(
