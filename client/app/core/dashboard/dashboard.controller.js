@@ -20,7 +20,6 @@ angular.module('manageBox.core.dashboard')
   function MainController($scope, $window, socket, thing, box, auth, noty) {
    //function($scope,$position)
      console.log('main.js MainCtrl');
-    $scope.duh=function(){alert('duh');}
      $scope.awesomeThings = [];
      $scope.boxDocuments = [];
      $scope.isLoggedIn = function(){
