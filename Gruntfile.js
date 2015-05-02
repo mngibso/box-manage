@@ -59,6 +59,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.client %>/app/{core,common}/**/*.js',
           '<%= yeoman.client %>/app/{core,common}/**/**/*.js',
+          '!<%= yeoman.dist %>/public/bower_components/Chart.js',
+          '!<%= yeoman.dist %>/public/bower_components/angular-chart.js',
           '!<%= yeoman.client %>/app/{core,common}/**/*.spec.js',
           '!<%= yeoman.client %>/app/{core,common}/**/**/*.spec.js',
           '!<%= yeoman.client %>/app/{core,common}/**/*.mock.js',
@@ -96,7 +98,6 @@ module.exports = function (grunt) {
           '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.html',
           '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.html',
           '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.js',
-          '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.js',
           '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.mock.js',
@@ -239,6 +240,8 @@ module.exports = function (grunt) {
         files: {
           src: [
             '<%= yeoman.dist %>/public/{,*/}*.js',
+            '!<%= yeoman.dist %>/public/bower_components/Chart.js',
+            '!<%= yeoman.dist %>/public/bower_components/angular-chart.js',
             '<%= yeoman.dist %>/public/{,*/}*.css',
             '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/public/assets/fonts/*'
@@ -261,7 +264,10 @@ module.exports = function (grunt) {
     usemin: {
       html: ['<%= yeoman.dist %>/public/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/public/{,*/}*.css'],
-      js: ['<%= yeoman.dist %>/public/{,*/}*.js'],
+      js: ['<%= yeoman.dist %>/public/{,*/}*.js'
+      ,'!<%= yeoman.dist %>/public/bower_components/Chart.js'
+        ,'!<%= yeoman.dist %>/public/bower_components/angular-chart.js'
+      ],
       options: {
         assetsDirs: [
           '<%= yeoman.dist %>/public',
@@ -493,6 +499,8 @@ module.exports = function (grunt) {
           '<%= yeoman.client %>/index.html': [
               ['{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.js',
                '{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.js',
+                '!<%= yeoman.dist %>/public/bower_components/Chart.js',
+                '!<%= yeoman.dist %>/public/bower_components/angular-chart.js',
                '!{.tmp,<%= yeoman.client %>}/app/app.js',
                '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/*.spec.js',
                 '!{.tmp,<%= yeoman.client %>}/app/{core,common}/**/**/*.spec.js',
