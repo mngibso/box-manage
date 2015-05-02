@@ -16,6 +16,8 @@
       ,get: download
       ,delete: destroy
       ,upload: upload
+      ,info: info
+      ,preview: preview
     };
 
     // obtain the access token
@@ -31,6 +33,16 @@
     function destroy(file_id) {
       var url = base_url + file_id;
       return $http.delete(url);
+    }
+
+    function preview(file_id) {
+      var url = base_url + file_id;
+      return $http.get(url);
+    }
+
+    function info(file_id) {
+      var url = base_url + file_id;
+      return $http.get(url);
     }
 
     function download(file_id) {

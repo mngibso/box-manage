@@ -4,7 +4,7 @@
   </div>
   <div class="panel-body">
     <div class="list-group">
-      <a href="#" class="list-group-item"
+      <a href="#" class="list-group-item" style="padding:18px 15px"
          ng-repeat="notf in NotCtrl.notificationsList | orderBy:'-created'"
          ng-class="notf.action=='add' ? 'list-group-item' : 'text-danger list-group-item'" >
         <i ng-class="notf.type == 'file' ? 'fa fa-file fa-fw' : 'fa fa-tasks fa-fw'"></i> <span ng-class="notf.action=='add' ? 'text-success':'text-danger'">{{notf.text}}</span>

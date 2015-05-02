@@ -30,7 +30,7 @@
     var unbindAdd = $scope.$on('boxAdded', function(event, item){
       noty.alert("'" + item.name +"' added", {timeout: 3000});
     });
-    var unbindDelete = $scope.$on('boxDeleted', function(event, item){
+    var unbindDelete = $scope.$on('XXXboxDeleted', function(event, item){
       noty.alert("File deleted", {timeout: 3000});
     });
 

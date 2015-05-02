@@ -4,14 +4,12 @@
         <div class="col-lg-12">
             <h1 class="page-header">Dashboard</h1>
 
-          <button ng-click="duh()">duh</button>
         </div>
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
     <div class="row">
 
-      <button ng-click="duh()">duh</button>
         <stats number="6" comments="New comments!" colour="primary" type="comments"></stats>
         <stats number="12" comments="New tasks!" colour="primary" type="user"></stats>
         <stats number="18" comments="New orders!" colour="yellow" type="shopping-cart"></stats>
@@ -27,7 +25,9 @@
                     <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
                 </div>
                 <!-- /.panel-heading -->
-                <timeline></timeline>
+                <timeline logged-in="isLoggedIn()"
+                          upload-file="upload"
+                          items="boxDocuments"></timeline>
                 <!-- /.panel-body -->
             </div>
             <!-- /.panel -->

@@ -1,6 +1,6 @@
 'use strict';
 
-/* <box-file></box-file>
+/* <box-file doc="<file object>"></box-file>
   Displays a file existing on the Box.com service.  Allow download and delete.
  */
 (function(){

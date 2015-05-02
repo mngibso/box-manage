@@ -31,26 +31,26 @@ angular.module('manageBox.common.directive.notifications', [])
       //this.notificationsList = [{text: 'one', created:new Date(), type:'file'}];
 
       var unbindAdd = $scope.$on('boxAdded', function(event, item){
-        noty.alert("'" + item.name +"' added", {timeout: 3000});
+        //noty.alert("'" + item.name +"' added", {timeout: 3000});
         $scope.NotCtrl.notificationsList.push( {
           text: "'" + item.name + "' added"
           ,action:'add'
          ,created: new Date()
-         ,type:'file '
+         ,type:'file'
         });
       });
       var unbindDelete = $scope.$on('boxDeleted', function(event, item){
-        noty.alert("File deleted", {timeout: 3000});
+        //noty.alert("File deleted", {timeout: 3000});
         $scope.NotCtrl.notificationsList.push( {
-          text: "'" + item.name + "' deleted"
+          text: "File deleted"
           ,action:'delete'
           ,created: new Date()
-          ,type:'file '
+          ,type:'file'
         });
       });
 
       var unbindTAdd = $scope.$on('thingAdded', function(event, item){
-        noty.alert("ToDo added", {timeout: 3000});
+        //noty.alert("ToDo added", {timeout: 3000});
         $scope.NotCtrl.notificationsList.push( {
           text: "ToDo added"
           ,action:'add'
@@ -61,12 +61,12 @@ angular.module('manageBox.common.directive.notifications', [])
 
       var unbindTDelete = $scope.$on('thingDeleted', function(event, item){
         console.log('thingDeleted registered');
-        noty.alert("ToDo deleted", {timeout: 3000});
+        //noty.alert("ToDo deleted", {timeout: 3000});
         $scope.NotCtrl.notificationsList.push( {
           text:"ToDo deleted"
           ,action:'delete'
           ,created: new Date()
-          ,type:'todo '
+          ,type:'todo'
         });
       });
 
