@@ -51,6 +51,7 @@ angular.module('manageBox.common.service.socket', [])
             event = 'updated';
           } else {
             array.push(item);
+            console.log('modelName ' + modelName + ' Added');
             $rootScope.$broadcast(modelName + 'Added', item);
             //noty.alert(modelName + ' added');
           }
@@ -68,6 +69,7 @@ angular.module('manageBox.common.service.socket', [])
           else
             _.remove(array, {id: item.id});
           //noty.alert(modelName + ' deleted');
+          console.log('modelName ' + modelName + ' Deleted');
           $rootScope.$broadcast(modelName + 'Deleted', item);
           cb(event, item, array);
         });

@@ -6,7 +6,7 @@ alert('main.main');
     .controller('manageBox.core.main.MainCtrlXXX',
     ['$scope'
       ,'$window'
-      ,'manageBox.common.service.socket.SocketService'
+      //,'manageBox.common.service.socket.SocketService'
       ,'manageBox.common.service.ThingAPIService'
       ,'manageBox.common.service.BoxAPIService'
       ,'manageBox.common.service.AuthService'
@@ -18,13 +18,14 @@ alert('main.main');
     $scope.awesomeThings = [];
     $scope.boxDocuments = [];
     $scope.isLoggedIn = auth.isLoggedIn;
-
+/*
     var unbindAdd = $scope.$on('boxAdded', function(event, item){
       noty.alert("'" + item.name +"' added", {timeout: 3000});
     });
     var unbindDelete = $scope.$on('boxDeleted', function(event, item){
       noty.alert("File deleted", {timeout: 3000});
     });
+    */
 
     box.contents().then(function(resp){
       $scope.boxDocuments = resp.data.entries;

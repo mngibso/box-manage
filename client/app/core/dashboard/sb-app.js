@@ -26,7 +26,6 @@ angular
     $stateProvider
       .state('dashboard', {
         url:'/dashboard',
-        controller: 'MainCtrl',
         //templateUrl: 'views/dashboard/main.html',
         templateUrl: 'app/core/dashboard/main.tpl.html',
         resolve: {

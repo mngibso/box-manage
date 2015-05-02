@@ -24,7 +24,6 @@
       return $http.get('/api/things')
         .then(
         function (response) {
-          console.log(response.data);
           return response.data;
         });
     }

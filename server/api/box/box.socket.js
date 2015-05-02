@@ -22,6 +22,7 @@ var Emitter = (function () {
     getInstance: function () {
       if (!emitter) {
         emitter = createInstance();
+        emitter.setMaxListeners(0);
         console.log('create emitter');
       }
       console.log('return emitter');

@@ -40,7 +40,8 @@ angular.module('manageBox', [
       .otherwise('/');
       */
 
-    $locationProvider.html5Mode(true);
+
+      $locationProvider.html5Mode(true);
     //make req.xhr == true in node
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
     $httpProvider.interceptors.push('authInterceptor');
