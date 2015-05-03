@@ -77,7 +77,7 @@ angular
     })
       .state('dashboard.home',{
         url:'/home',
-        controller: 'MainCtrl',
+        controller: 'manageBox.core.dashboard.DashboardCtrl',
         templateUrl:'app/core/dashboard/home.tpl.html',
         resolve: {
           loadMyFiles:function($ocLazyLoad) {

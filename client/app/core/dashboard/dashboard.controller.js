@@ -1,14 +1,14 @@
 'use strict';
 /**
  * @ngdoc function
- * @name sbAdminApp.controller:MainCtrl
+ * @name sbAdminApp.controller:manageBox.core.dashboard.DashboardCtrl
  * @description
- * # MainCtrl
+ * # manageBox.core.dashboard.DashboardCtrl
  * Controller of the sbAdminApp
  */
 //angular.module('sbAdminApp')
 angular.module('manageBox.core.dashboard')
-  .controller('MainCtrl',
+  .controller('manageBox.core.dashboard.DashboardCtrl',
   ['$scope'
   ,'$window'
   ,'manageBox.common.service.socket.SocketService'
@@ -19,7 +19,7 @@ angular.module('manageBox.core.dashboard')
   ,MainController]);
   function MainController($scope, $window, socket, thing, box, auth, noty) {
    //function($scope,$position)
-     console.log('main.js MainCtrl');
+     console.log('main.js manageBox.core.dashboard.DashboardCtrl');
      $scope.awesomeThings = [];
      $scope.boxDocuments = [];
      $scope.isLoggedIn = function(){
