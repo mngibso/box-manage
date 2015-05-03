@@ -26,14 +26,32 @@ angular.module('manageBox.core.dashboard')
        return auth.isLoggedIn();
      }
 
+    $scope.donut = {
+      labels: ["ToDo Items Added", "Files Uploaded", "Other"],
+      colours:[
+        "#f0ad4e",
+       "#337ab7",
+        "#d9534f"
+      ]
+    };
+    $scope.refreshData = function(){
+      return [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
+    };
+
+    $scope.itemsData =  $scope.refreshData();
+
      box.contents().then(function(resp){
        $scope.boxDocuments = resp.data.entries;
        socket.syncUpdates('box', $scope.boxDocuments);
+         $scope.refreshData();
      });
+
 
      thing.get().then(function(things){
        $scope.awesomeThings = things;
        socket.syncUpdates('thing', $scope.awesomeThings);
+
+       $scope.refreshData();
      });
 
      //Get the doc url from the server, open new page with the doc url
@@ -46,10 +64,30 @@ angular.module('manageBox.core.dashboard')
        if(theThing) thing.delete( theThing._id ).then(function(){ });
      };
 
+    var unbindAdd = $scope.$on('boxAdded', function(event, item){
+      $scope.refreshData();
+    });
+    var unbindDelete = $scope.$on('boxDeleted', function(event, item){
+      $scope.refreshData();
+    });
+
+    var unbindTAdd = $scope.$on('thingAdded', function(event, item){
+      $scope.refreshData();
+    });
+
+    var unbindTDelete = $scope.$on('thingDeleted', function(event, item){
+      $scope.refreshData();
+    });
+
+
      $scope.$on('$destroy', function () {
        console.log('destroy -unsync');
        socket.unsyncUpdates('thing');
        socket.unsyncUpdates('box');
+       unbindAdd();
+       unbindDelete();
+       unbindTAdd();
+       unbindTDelete();
      });
 
   };

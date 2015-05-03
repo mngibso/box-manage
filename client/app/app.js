@@ -33,6 +33,7 @@ angular.module('manageBox', [
   'btford.socket-io',
   'ui.router',
   'angularMoment',
+  'chart.js',
   'ui.bootstrap'
 ])
   .config([ '$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$ocLazyLoadProvider',

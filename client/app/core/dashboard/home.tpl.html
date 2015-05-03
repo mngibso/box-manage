@@ -10,11 +10,24 @@
     <!-- /.row -->
     <div class="row">
 
-        <stats number="6" comments="New comments!" colour="primary" type="comments"></stats>
-        <stats number="12" comments="New tasks!" colour="primary" type="user"></stats>
+        <stats number="{{boxDocuments.length}}" comments="Files Uploaded!" colour="primary" type="file"></stats>
+        <stats number="{{awesomeThings.length}}" comments="ToDo items!" colour="yellow" type="tasks"></stats>
+      <div class="col-lg-6 col-sm-12" id="doughnut-chart">
+        <div class="panel panel-default" style="border-color:#000">
+          <!-- <div class="panel-heading">Items</div> -->
+          <div class="panel-body"style="height:165px">
+            <canvas id="doughnut" class="chart chart-doughnut chart-xs" height="70" style="height:70px"
+                    ng-init="atl=awesomeThings.length"
+                    data="refreshData()" labels="donut.labels" legend="true"
+                    colours="donut.colours"></canvas>
+            {{data.colours}}
+          </div>
+        </div>
+      </div>
+      <!--
         <stats number="18" comments="New orders!" colour="yellow" type="shopping-cart"></stats>
         <stats number="24" comments="Support tickets!" colour="red" type="support"></stats>
-
+      -->
     </div>
 
     <!-- /.panel -->
