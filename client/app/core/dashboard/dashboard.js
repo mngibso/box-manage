@@ -29,15 +29,15 @@ angular
         //templateUrl: 'views/dashboard/main.html',
         templateUrl: 'app/core/dashboard/main.tpl.html',
         resolve: {
-            loadMyDirectives:function($ocLazyLoad){
+            loadMyDirectives: [ '$ocLazyLoad', function($ocLazyLoad){
                 return $ocLazyLoad.load(
                 {
                     name:'manageBox',
                     files:[
-                      'app/common/directive/header/dashboard-header.directive.js',
-                      'app/common/directive/header/header-notification/header-notification.directive.js',
-                      'app/common/directive/sidebar/dashboard-sidebar.directive.js',
-                      'app/common/directive/sidebar/sidebar-search/sidebar-search.directive.js'
+                      //'app/common/directive/header/dashboard-header.directive.js',
+                      //'app/common/directive/header/header-notification/header-notification.directive.js',
+                      //'app/common/directive/sidebar/dashboard-sidebar.directive.js',
+                      //'app/common/directive/sidebar/sidebar-search/sidebar-search.directive.js'
                     ]
                 }),
                 $ocLazyLoad.load(
@@ -72,7 +72,7 @@ angular
                   name:'ngTouch',
                   files:[]//'bower_components/angular-touch/angular-touch.js']
                 })
-            }
+            }]
         }
     })
       .state('dashboard.home',{
@@ -80,7 +80,7 @@ angular
         controller: 'manageBox.core.dashboard.DashboardCtrl',
         templateUrl:'app/core/dashboard/home.tpl.html',
         resolve: {
-          loadMyFiles:function($ocLazyLoad) {
+          loadMyDirectives: [ '$ocLazyLoad', function($ocLazyLoad){
             return $ocLazyLoad.load({
               name:'manageBox',
               files:[
@@ -91,7 +91,7 @@ angular
               //'scripts/directives/dashboard/stats/stats.js'
               ]
             })
-          }
+          }]
         }
       })
       .state('dashboard.form',{
@@ -113,7 +113,7 @@ angular
         url:'/chart',
         controller:'ChartCtrl',
         resolve: {
-          loadMyFile:function($ocLazyLoad) {
+            loadMyFile: [ '$ocLazyLoad', function($ocLazyLoad){
             return $ocLazyLoad.load(
                 'bower_components/Chart.js/Chart.min.js'
             ),
@@ -128,7 +128,7 @@ angular
                 name:'manageBox',
                 files:[]//'scripts/controllers/chartContoller.js']
             })
-          }
+          }]
         }
     })
       .state('dashboard.table',{

@@ -22,6 +22,7 @@ angular.module('manageBox.core.dashboard')
      console.log('main.js manageBox.core.dashboard.DashboardCtrl');
      $scope.awesomeThings = [];
      $scope.boxDocuments = [];
+    $scope.donutData=[1,1,1];
      $scope.isLoggedIn = function(){
        return auth.isLoggedIn();
      }
@@ -35,7 +36,8 @@ angular.module('manageBox.core.dashboard')
       ]
     };
     $scope.refreshData = function(){
-      return [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
+      $scope.donutData= [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
+      //return [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
     };
 
     $scope.itemsData =  $scope.refreshData();

@@ -243,7 +243,7 @@ module.exports = function (grunt) {
             '!<%= yeoman.dist %>/public/bower_components/Chart.js',
             '!<%= yeoman.dist %>/public/bower_components/angular-chart.js',
             '<%= yeoman.dist %>/public/{,*/}*.css',
-            '<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '!<%= yeoman.dist %>/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/public/assets/fonts/*'
           ]
         }
@@ -568,7 +568,7 @@ module.exports = function (grunt) {
       'clean:server',
       'env:all',
       'concurrent:server',
-      'injector',
+      //'injector',
       'wiredep',
       'autoprefixer',
       'express:dev',

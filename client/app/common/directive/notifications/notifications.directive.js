@@ -9,7 +9,7 @@
 //Todo - separate out notification panel from general notifications
 angular.module('manageBox.common.directive.notifications', [])
 	.directive('notifications',
-  [ 'manageBox.common.service.NotificationService' , function(noty){
+  function(){
 		return {
         templateUrl:'app/common/directive/notifications/notifications.tpl.html',
         restrict: 'E',
@@ -18,11 +18,12 @@ angular.module('manageBox.common.directive.notifications', [])
       controllerAs: 'NotCtrl',
         link: notificationsLink
     	};
-    function notificationsController($scope){
+    function notificationsController(){
+      var vm = this;
       console.log('notificationsController');
       //this.notificationsList = [{text: 'one', created:new Date(), type:'file'}];
-      this.notificationsList = [];
-      this.now = new Date();
+      vm.notificationsList = [];
+      vm.now = new Date();
     }
 
     function notificationsLink($scope){
@@ -78,19 +79,5 @@ angular.module('manageBox.common.directive.notifications', [])
       });
 
     }
-	}]);
+	});
 
-/*
-.controller('manageBox.core.main.MainCtrlXXX',
-  ['$scope'
-    ,'$window'
-    ,'manageBox.common.service.socket.SocketService'
-    ,'manageBox.common.service.ThingAPIService'
-    ,'manageBox.common.service.BoxAPIService'
-    ,'manageBox.common.service.AuthService'
-    ,'manageBox.common.service.NotificationService'
-    ,MainController]);
-
-function MainController($scope, $window, socket, thing, box, auth, noty) {
-
-*/
