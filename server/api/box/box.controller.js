@@ -61,6 +61,21 @@ exports.token = function(req, res, next){
   refreshToken(function(data) { res.send(data); },
     function(err) { next(err); });
 };
+exports.info = function(req, res, next){
+  //non 401 error
+  try {
+    // Box error?
+    var obj = JSON.parse(response.body);
+    if (obj.error){
+      return callback(obj.error);
+    }
+  } catch(err) {}
+
+  //Return error
+  callback({message: 'Unknown Box API error', status: response.statusCode});
+  refreshToken(function(data) { res.send(data); },
+    function(err) { next(err); });
+};
 
 //curl https://api.box.com/2.0/folders/FOLDER_ID/items?limit=2&offset=0  -H "Authorization: Bearer ACCESS_TOKEN"
 //ToDo - add limit and offset for pagination

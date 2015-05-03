@@ -11,6 +11,7 @@ router.get('/', controller.contents); // contents of the base folder defined in 
 router.get('/folders/:folder_id/items', controller.contents); //contents of folder_id
 router.get('/token', controller.token); //refresh token
 router.get('/:file_id', controller.download); //returns a link to the file
+router.get('/:file_id/info', controller.info); //returns a link to the file
 router.post('/', multipartMiddleware, controller.upload);
 //router.put('/:id', controller.update);
 //router.patch('/:id', controller.update);

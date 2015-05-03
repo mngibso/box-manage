@@ -41,7 +41,7 @@
     }
 
     function info(file_id) {
-      var url = base_url + file_id;
+      var url = base_url + file_id + '/info';
       return $http.get(url);
     }
 
