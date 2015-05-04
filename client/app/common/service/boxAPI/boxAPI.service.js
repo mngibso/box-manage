@@ -40,8 +40,10 @@
       return $http.get(url);
     }
 
-    function info(file_id) {
+    //ToDo - use fields
+    function info(file_id, fields) {
       var url = base_url + file_id + '/info';
+      //if(fields)
       return $http.get(url);
     }
 

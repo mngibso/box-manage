@@ -11,7 +11,7 @@
 
     <ul class="timeline">
       <!-- <li ng-repeat="item in items"><box-file doc="item"></box-file></li> -->
-        <li ng-repeat="item in items | orderBy: '-id'" ng-class="$odd ? 'timeline-inverted' : ''">
+        <li ng-repeat="item in items | orderBy: '-created_at'" ng-class="$odd ? 'timeline-inverted' : ''">
             <div class="timeline-badge"><i class="fa fa-file"></i>
             </div>
             <div class="timeline-panel">
@@ -28,7 +28,7 @@
               </div>
                 <div class="timeline-heading">
                     <h4 class="timeline-title">{{item.name}}</h4>
-                  <p><small class="text-muted"><i class="fa fa-clock-o"></i> Uploaded <span am-time-ago="then"></span></small>
+                  <p><small class="text-muted"><i class="fa fa-clock-o"></i> Uploaded <span am-time-ago="item.created_at"></span></small>
                   </p>
                 </div>
                 <div class="timeline-body">

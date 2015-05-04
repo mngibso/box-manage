@@ -61,21 +61,24 @@ exports.token = function(req, res, next){
   refreshToken(function(data) { res.send(data); },
     function(err) { next(err); });
 };
-exports.info = function(req, res, next){
-  //non 401 error
-  try {
-    // Box error?
-    var obj = JSON.parse(response.body);
-    if (obj.error){
-      return callback(obj.error);
+//curl https://api.box.com/2.0/files/FILE_ID
+exports.info = function(req, res, next) {
+  var file_id = req.params.file_id;
+  var url = boxConfig.base_url + '/files/' + file_id;
+  jq.ajax(url, {
+    headers: {
+      Authorization: 'Bearer ' + boxConfig.access_token
     }
-  } catch(err) {}
+  })
+    .done(function (data, textStatus, jqXHR) {
+    res.send(data);
+  })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR.getResponseHeader('www-authenticate'));
+      next(errorThrown);
 
-  //Return error
-  callback({message: 'Unknown Box API error', status: response.statusCode});
-  refreshToken(function(data) { res.send(data); },
-    function(err) { next(err); });
-};
+    });
+}
 
 //curl https://api.box.com/2.0/folders/FOLDER_ID/items?limit=2&offset=0  -H "Authorization: Bearer ACCESS_TOKEN"
 //ToDo - add limit and offset for pagination

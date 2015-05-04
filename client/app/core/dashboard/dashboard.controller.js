@@ -40,17 +40,26 @@ function DashboardController($scope, socket, thing, box, auth) {
 
   $scope.itemsData =  $scope.refreshData();
 
-  box.contents().then(function(resp){
-    $scope.boxDocuments = resp.data.entries;
+  getFilesInfo(box, function(err, files){
+    console.log('getFilesINfo return');
+    if(err) console.log(err);
+    $scope.boxDocuments = files || [];
     socket.syncUpdates('box', $scope.boxDocuments);
+    $scope.refreshData()
+  });
+  /*
+  box.contents().then(function(resp){
+    //$scope.boxDocuments = resp.data.entries;
+    var entries = resp.data.entries;
+    $scope.boxDocuments = entries;
+
     $scope.refreshData();
   });
-
+*/
 
   thing.get().then(function(things){
     $scope.awesomeThings = things;
     socket.syncUpdates('thing', $scope.awesomeThings);
-
     $scope.refreshData();
   });
 
@@ -91,3 +100,24 @@ function DashboardController($scope, socket, thing, box, auth) {
   });
 
 };
+
+/*
+*  get contents of the base folder, the get info for each file ( to obtain created_at )
+*
+* */
+function getFilesInfo(boxService, cb){
+  console.log('getFilesInfo');
+    boxService.contents().then(function(things){
+      //Get info on each thing simultaniously
+      async.concat(things.data.entries, function(fileObj, callback){
+        var id = fileObj.id;
+        boxService.info(id, ['name','id','etag','created_at','type']).then(function(resp){
+          callback(null, resp.data);
+        });
+
+      }, function(err, files){
+        cb(err,files);
+      });
+
+    });
+}
