@@ -15,7 +15,7 @@
   <!-- /.panel-footer -->
   <div class="panel-body">
     <div class="list-group">
-      <a href="#" class="delete-icon list-group-item"ng-repeat="thing in todos | orderBy:'-audit.addedOn'"
+      <a href="#" class="delete-icon list-group-item todo-list-item" ng-repeat="thing in todos | orderBy:'-audit.addedOn'"
          ng-click="itemDelete()(thing)"
          data-toggle="tooltip" data-placement="right" title="Click to delete">
         <i class="fa fa-fw"></i> {{thing.name}}

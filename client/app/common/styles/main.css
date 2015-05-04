@@ -91,3 +91,6 @@ opacity: 0.65;
 pointer-events: none;
 }
 
+.todo-list-item {
+  padding: 19px 15px;
+}
