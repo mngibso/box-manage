@@ -81,6 +81,13 @@ body {
 text-decoration: none;
 background-color: #eee;
 }
-                                .delete-icon::before {
-                                  content: url("../../../assets/images/delete-icon.png");
-                                }
+.delete-icon::before {
+content: url("../../../assets/images/delete-icon.png");
+}
+a.disabled {
+box-shadow: none;
+cursor: not-allowed;
+opacity: 0.65;
+pointer-events: none;
+}
+

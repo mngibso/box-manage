@@ -18,10 +18,8 @@ angular.module('manageBox', [
   'manageBox.common.directive.notifications',
   'manageBox.common.directive.boxFile',
 
-  //'manageBox.common.directive.chat',
   'manageBox.common.directive.todo-panel',
   'manageBox.common.directive.dashboard.stats',
-  //'manageBox.core.main',
   'manageBox.core.dashboard',
   'manageBox.core.admin',
   'manageBox.core.account',

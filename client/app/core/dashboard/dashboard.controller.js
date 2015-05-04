@@ -36,7 +36,7 @@ angular.module('manageBox.core.dashboard')
       ]
     };
     $scope.refreshData = function(){
-      $scope.donutData= [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
+      $scope.donutData = [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
       //return [ $scope.awesomeThings.length,$scope.boxDocuments.length, Math.floor(Math.random() * 6) + 1];
     };
 

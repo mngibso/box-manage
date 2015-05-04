@@ -7,21 +7,24 @@
  * # adminPosHeader
  */
 angular.module('manageBox.common.directive.timeline',[])
-	.directive('timeline',[ 'manageBox.common.service.BoxAPIService',
+	.directive('timeline',[ '$window', 'manageBox.common.service.BoxAPIService',
     'manageBox.common.service.NotificationService',
-    function(box, noty) {
+    function($window, box, noty) {
     return {
         templateUrl:'app/common/directive/timeline/timeline.tpl.html',
         restrict: 'E',
         replace: true
-      , scope: { items: '='
+      , scope: {
+        items: '='
       , loggedIn: '&'
       }
       , link: timelineLink
     }
     function timelineLink($scope){
+      $scope.then = moment().subtract(2, 'hours');
+
       $scope.LoggedIn = function(){
-       return $scope.loggedIn;
+       return $scope.loggedIn();
       }
 
       $scope.downloadDocument = function(doc){

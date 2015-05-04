@@ -20,10 +20,8 @@
       , link: boxFileLink
     };
     function boxFileLink($scope, element, attrs) {
-      console.log('boxFileLink');
     }
     function boxFileController( $scope ){
-      console.log('boxFileController');
       this.doc = $scope.doc;
 
       this.downloadDocument = function(doc){
