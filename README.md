@@ -7,9 +7,9 @@ This project is constantly refactored. Currently it is my sandbox for:
 * Create boilerplate with Yoeman
 * Integrate SB Admin Angular dashboard.
 
-Live - http://manage-box.herokuapp.com/
+Live Demo - http://manage-box.herokuapp.com/
 
-## Best Practices?
+## Best Practices
 
 I found many things labled "best practices" online, some of it conflicting. I want try out the practices that made the most sense to me and see how they work in a "real" project.
 

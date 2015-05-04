@@ -78,6 +78,7 @@ angular
       .state('dashboard.home',{
         url:'/home',
         controller: 'manageBox.core.dashboard.DashboardCtrl',
+        controllerAs: 'DashboardCtrl',
         templateUrl:'app/core/dashboard/home.tpl.html',
         resolve: {
           loadMyDirectives: [ '$ocLazyLoad', function($ocLazyLoad){

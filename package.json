@@ -1,6 +1,6 @@
 {
   "name": "manage-box",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "server/app.js",
   "dependencies": {
     "jquery": "1.8.3",
@@ -98,5 +98,5 @@
     "postinstall": "echo postinstall time; bower install && node_modules/grunt-cli/bin/grunt build",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
-  "private": true
+  "private": false
 }
