@@ -10,14 +10,14 @@
     <!-- /.row -->
     <div class="row">
 
-        <stats number="{{DashboardCtrl.boxDocuments.length}}" comments="Files Uploaded!" colour="primary" type="file"></stats>
-        <stats number="{{DashboardCtrl.awesomeThings.length}}" comments="ToDo items!" colour="yellow" type="tasks"></stats>
+        <stats number="{{boxDocuments.length}}" comments="Files Uploaded!" colour="primary" type="file"></stats>
+        <stats number="{{awesomeThings.length}}" comments="ToDo items!" colour="yellow" type="tasks"></stats>
       <div class="col-lg-6 col-sm-12" id="doughnut-chart">
         <div class="panel panel-default" style="border-color:#000">
           <!-- <div class="panel-heading">Items</div> -->
           <div class="panel-body"style="height:165px">
             <canvas id="doughnut" class="chart chart-doughnut chart-xs" height="70" style="height:70px"
-                    ng-init="atl=DashboardCtrl.awesomeThings.length"
+                    ng-init="atl=awesomeThings.length"
                     data="donutData" labels="donut.labels" legend="true"
                     colours="donut.colours"></canvas>
           </div>

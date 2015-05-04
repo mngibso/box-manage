@@ -36,28 +36,23 @@ angular.module('manageBox', [
 ])
   .config([ '$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$ocLazyLoadProvider',
     function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $ocLazyLoadProvider) {
-      /*
-    $urlRouterProvider
-      .otherwise('/');
-      */
-
 
       $locationProvider.html5Mode(true);
-    //make req.xhr == true in node
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-    $httpProvider.interceptors.push('authInterceptor');
-    $httpProvider.interceptors.push('httpErrorsInterceptor');
-    //$httpProvider.defaults.useXDomain = true;
-    //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+      //make req.xhr == true in node
+      $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+      $httpProvider.interceptors.push('authInterceptor');
+      $httpProvider.interceptors.push('httpErrorsInterceptor');
+      //$httpProvider.defaults.useXDomain = true;
+      //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-    $ocLazyLoadProvider.config({
-      debug:false,
-      events:true
-    });
+      $ocLazyLoadProvider.config({
+        debug:false,
+        events:true
+      });
 
-    $urlRouterProvider.otherwise('/dashboard/home');
+      $urlRouterProvider.otherwise('/dashboard/home');
 
-  }])
+    }])
   .factory('httpErrorsInterceptor', function ($q, $rootScope) {
     return {
       responseError: function (response) {

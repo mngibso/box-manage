@@ -14,19 +14,21 @@ angular
     'ui.bootstrap',
     'angular-loading-bar'
   ])
-  .config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider',function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
+  .config(['$stateProvider'
+    ,'$urlRouterProvider'
+    ,'$ocLazyLoadProvider',
+    function ($stateProvider,$urlRouterProvider,$ocLazyLoadProvider) {
 
+      //Can't use LazyLoad with grunt usemin
     $ocLazyLoadProvider.config({
       debug:true,
       events:true
     });
 
-    //$urlRouterProvider.otherwise('/dashboard/home');
 
     $stateProvider
       .state('dashboard', {
         url:'/dashboard',
-        //templateUrl: 'views/dashboard/main.html',
         templateUrl: 'app/core/dashboard/main.tpl.html',
         resolve: {
             loadMyDirectives: [ '$ocLazyLoad', function($ocLazyLoad){
@@ -78,7 +80,6 @@ angular
       .state('dashboard.home',{
         url:'/home',
         controller: 'manageBox.core.dashboard.DashboardCtrl',
-        controllerAs: 'DashboardCtrl',
         templateUrl:'app/core/dashboard/home.tpl.html',
         resolve: {
           loadMyDirectives: [ '$ocLazyLoad', function($ocLazyLoad){
