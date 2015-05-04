@@ -35,3 +35,12 @@ Tweak the Grunt file to support the new directory structure.
 Allow users to upload/download files on behalf of a box user.  See Provisioning https://developers.box.com/provision/  The Box feature that allows this is only available for paid accounts.
 
 When an initial request is rejected with a 401, automatically refresh the access token and try again.
+
+## ToDo
+
+* Use Keen.io to track events.
+* Use Keen.io data in charts.
+* Add tests
+* Implement Box File Info api call
+* Use $log throughout
+* Use 'controllerAs' throughout
