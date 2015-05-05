@@ -62,9 +62,11 @@ exports.token = function(req, res, next){
     function(err) { next(err); });
 };
 //curl https://api.box.com/2.0/files/FILE_ID
+//ToDo - store results of this call in redis
 exports.info = function(req, res, next) {
   var file_id = req.params.file_id;
   var url = boxConfig.base_url + '/files/' + file_id;
+  if(req.query.fields) url = url + '?fields=' + req.query.fields;
   jq.ajax(url, {
     headers: {
       Authorization: 'Bearer ' + boxConfig.access_token

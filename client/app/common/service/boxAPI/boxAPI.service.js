@@ -43,7 +43,7 @@
     //ToDo - use fields
     function info(file_id, fields) {
       var url = base_url + file_id + '/info';
-      //if(fields)
+      if(fields) url = url + '?fields=' + fields.join();
       return $http.get(url);
     }
 
